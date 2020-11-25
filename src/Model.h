@@ -15,7 +15,7 @@ class Model
         std::vector<std::shared_ptr<Tile>> tiles;
 
       public:
-        Board(unsigned dim);
+        Board(unsigned dim = 5);
 
         const unsigned& getDim()const;
         Tile& operator[](unsigned i);
@@ -34,7 +34,5 @@ class Model
     Board& getGrid();
     void setTurn(const Player turn);
     void setGrid(const Board board);
-
-
 };
 #endif
