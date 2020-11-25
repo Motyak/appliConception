@@ -1,4 +1,5 @@
 @startuml modelisation
+
 interface Ai 
 {
     {abstract} +void nextMove()
@@ -11,7 +12,7 @@ class Random
     +void nextMove()
 }
 
-note right of MinMax : <b>nextMove</b> is a \ntemplate method
+note left of MinMax : <b>nextMove</b> is a \ntemplate method
 Ai 	<|-- MinMax
 class MinMax
 {
@@ -35,4 +36,50 @@ class ThreadPool
 
 ThreadPool *-- "1..*" SFMLThread
 class SFMLThread
+
+class AnimationFactory
+{
+    +get(..) : ..
+}
+
+note "singletons" as N1
+AnimationFactory .. N1
+N1 .. GraphicFactory
+
+class GraphicFactory
+{
+    +get(..) : ..
+}
+
+class Model
+{
+
+}
+
+note left of View : event handlers call\nController use cases
+View *-- GraphicFactory
+View *-- AnimationFactory
+class View
+{
+    +void setElem1(..)
+    +void evtHandler1(..)
+    +...()
+}
+
+note left of Controller : <b>updateView</b> updates\nView based on Model
+Controller *-- Model
+Controller *--> View
+Controller *-- Ai
+class Controller
+{
+    +void updateView()
+    +void UC1()
+    +...()
+}
+
+Launcher *-- Controller
+class Launcher
+{
+    +void launch()
+}
 @enduml
