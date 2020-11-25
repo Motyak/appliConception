@@ -39,16 +39,12 @@ class SFMLThread
 
 class AnimationFactory
 {
-    +get(..) : ..
+    +get..(..) : ..
 }
-
-note "singletons" as N1
-AnimationFactory .. N1
-N1 .. GraphicFactory
 
 class GraphicFactory
 {
-    +get(..) : ..
+    +get..(..) : ..
 }
 
 class Model
