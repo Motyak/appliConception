@@ -1,0 +1,8 @@
+Prochaines étapes :
+
+-Ecrire le controller et pouvoir placer des pièces dans
+    la grille à tour de role (sans fin).
+-Pouvoir vérifier la condition de victoire (calculate outcome)
+-Jeu fonctionnel avec IA random
+-Interface simple en SFML
+-Intégrer l'interface SFML à la classe View
