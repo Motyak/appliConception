@@ -1,0 +1,38 @@
+@startuml modelisation
+interface Ai 
+{
+    {abstract} +void nextMove()
+}
+
+note left of Ai : Strategy pattern
+Ai 	<|-- Random
+class Random
+{
+    +void nextMove()
+}
+
+note right of MinMax : <b>nextMove</b> is a \ntemplate method
+Ai 	<|-- MinMax
+class MinMax
+{
+    +void nextMove()
+    -void genTree()
+    -void evalNodes()
+}
+
+MinMax 	<|-- MinMaxMulti
+class MinMaxMulti
+{
+    -void genTree()
+    -void evalNodes()
+}
+
+MinMaxMulti *-- ThreadPool
+class ThreadPool
+{
+
+}
+
+ThreadPool *-- "1..*" SFMLThread
+class SFMLThread
+@enduml
