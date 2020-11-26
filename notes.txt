@@ -6,3 +6,12 @@ Prochaines étapes :
 -Jeu fonctionnel avec IA random
 -Interface simple en SFML
 -Intégrer l'interface SFML à la classe View
+
+
+On va hardcodé la dim de Quixo à 5 car ca fait pas de sens de pouvoir
+mettre plus. Comme ca on pourra faire un constructeur sans avoir à
+passer la dim et c'est mieux.
+
+
+
+Continuer de s'inspirer de https://github.com/olbrew/space-invaders/

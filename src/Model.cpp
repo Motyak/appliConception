@@ -2,16 +2,10 @@
 
 #include <iostream>
 
-Model::Board::Board(unsigned dim) : dim(dim)
+Model::Board::Board()
 {
-    int size = dim * dim;
-    for(int i = 0 ; i < size ; ++i)
+    for(int i = 0 ; i < Model::Board::SIZE ; ++i)
         this->tiles.push_back(std::make_shared<Model::Tile>(Model::Tile::EMPTY));
-}
-
-const unsigned& Model::Board::getDim()const
-{
-    return this->dim;
 }
 
 Model::Tile& Model::Board::operator[](unsigned i)
@@ -33,10 +27,10 @@ void Model::Board::clear()
 void Model::Board::print()const
 {
     const std::string map[] = {"\\", "X", "O"};
-    for(int row = 0 ; row < this->dim ; ++row)
+    for(int row = 0 ; row < Model::Board::DIM ; ++row)
     {
-        for(int col = 0 ; col < this->dim ; ++col)
-            std::cout<<map[(int)*this->tiles.at(row * this->dim + col).get()]<<"\t";
+        for(int col = 0 ; col < Model::Board::DIM ; ++col)
+            std::cout<<map[(int)*this->tiles.at(row * Model::Board::DIM + col).get()]<<"\t";
         std::cout<<std::endl;
     }
 }

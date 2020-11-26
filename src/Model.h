@@ -11,13 +11,15 @@ class Model
     enum class Player { X, O };
     class Board
     {
-        unsigned dim;
         std::vector<std::shared_ptr<Tile>> tiles;
 
       public:
-        Board(unsigned dim = 5);
 
-        const unsigned& getDim()const;
+		static constexpr unsigned DIM = 5;
+		static const unsigned SIZE = Board::DIM * Board::DIM;
+
+        Board();
+
         Tile& operator[](unsigned i);
 
         std::string calculateOutcome()const;
