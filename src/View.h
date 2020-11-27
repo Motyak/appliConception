@@ -1,20 +1,20 @@
 #ifndef VIEW_H
 #define VIEW_H
 
-#include "Model.h"
+#include "Controller.h"
 
 #include <memory>
 #include <SFML/Graphics.hpp>
 
+class Controller;
+
 class View
 {
-    std::shared_ptr<Model> model;
-    std::shared_ptr<sf::RenderWindow> window;
-    std::shared_ptr<sf::CircleShape> circle;
+    std::unique_ptr<Controller> ctrl;
+    std::unique_ptr<sf::CircleShape> circle;
 
   public:
-    View(std::shared_ptr<Model> model, std::shared_ptr<sf::RenderWindow> window);
-
+    View(Controller* ctrl);
     void draw();
 };
 #endif

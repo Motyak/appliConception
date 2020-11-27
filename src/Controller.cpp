@@ -2,17 +2,22 @@
 
 Controller::Controller()
 {
-    this->window = std::make_shared<sf::RenderWindow>(
+    this->window = std::make_unique<sf::RenderWindow>(
         sf::VideoMode(200, 200),
         "SFML works!"
     );
-    this->model = std::make_shared<Model>();
-    this->view = std::make_shared<View>(this->model, this->window);
+    this->model = std::make_unique<Model>();
+    this->view = std::make_unique<View>(this);
 }
 
 Controller::~Controller() 
 {
     this->window->close();
+}
+
+std::unique_ptr<sf::RenderWindow> Controller::getWindow()
+{
+    return std::move(this->window);
 }
 
 void Controller::run()
