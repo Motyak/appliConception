@@ -1,31 +1,112 @@
-@startuml modelisation
+@startuml MyModelisation
+
+interface Model
+{
+    {abstract}+getEntA()
+    {abstract}+setEntA(..)
+    {abstract}+checkOnWin()
+    {abstract}+..()
+}
+
+interface Ihm
+{
+    {abstract}+display()
+    {abstract}+setViewA(MyModel.EntA)
+    {abstract}+handle(..)
+    {abstract}+...()
+}
+
+note bottom of MyModelEntA : MyModel.EntA (static class)
+class MyModelEntA
+{
+    +<data>
+}
+
+note bottom of MyModelEntB : MyModel.EntB (static class)
+class MyModelEntB
+{
+    +<data>
+}
+
+Model <|-- MyModel
+MyModel *-- MyModelEntA
+MyModel *-- MyModelEntB
+class MyModel
+{
+    +getEntA()
+    +setEntA(MyModel.EntA)
+    +checkOnWin()
+    +..()
+}
+
+class AnimationFactory
+{
+    +{static}get..(..) : ..
+}
+
+class GraphicFactory
+{
+    +{static}get..(..) : ..
+}
+
+note bottom of MyIhmViewA : MyIhm.ViewA (static class)
+class MyIhmViewA
+{
+    -<data>
+    -create()
+    +set(..)
+    +display()
+}
+
+note bottom of MyIhmViewB : MyIhm.ViewB (static class)
+class MyIhmViewB
+{
+    -<data>
+    -create()
+    +set(..)
+    +display()
+}
+
+note bottom of MyIhm : easily replacable
+Ihm <|-- MyIhm
+MyIhm *-- MyIhmViewA
+MyIhm *-- MyIhmViewB
+GraphicFactory <-- MyIhmViewA : use
+AnimationFactory <-- MyIhmViewA : use
+class MyIhm
+{
+    +display()
+    +setViewA(MyModel.EntA)
+    +handle(..)
+    +...()
+}
 
 interface Ai 
 {
-    {abstract} +void nextMove()
+    {abstract} + nextMove()
 }
 
-note left of Ai : Strategy pattern
+note top of Ai : Strategy pattern
 Ai 	<|-- Random
 class Random
 {
-    +void nextMove()
+    + nextMove()
 }
 
 note left of MinMax : <b>nextMove</b> is a \ntemplate method
 Ai 	<|-- MinMax
 class MinMax
 {
-    +void nextMove()
-    -void genTree()
-    -void evalNodes()
+    + nextMove()
+    - genTree()
+    - evalNodes()
 }
 
 MinMax 	<|-- MinMaxMulti
 class MinMaxMulti
 {
-    -void genTree()
-    -void evalNodes()
+    - genTree()
+    - evalNodes()
 }
 
 MinMaxMulti *-- ThreadPool
@@ -37,45 +118,20 @@ class ThreadPool
 ThreadPool *-- "1..*" SFMLThread
 class SFMLThread
 
-class AnimationFactory
-{
-    +get..(..) : ..
-}
-
-class GraphicFactory
-{
-    +get..(..) : ..
-}
-
-class Model
-{
-
-}
-
-note left of View : event handlers call\nController use cases
-View *-- GraphicFactory
-View *-- AnimationFactory
-class View
-{
-    +void setElem1(..)
-    +void evtHandler1(..)
-    +...()
-}
-
-note left of Controller : <b>updateView</b> updates\nView based on Model
+note left of Controller : <b>updateView</b> updates\nViews based on MyModel
 Controller *-- Model
-Controller *--> View
+Controller *--> Ihm
 Controller *-- Ai
 class Controller
 {
-    +void updateView()
-    +void UC1()
+    + updateView()
+    + UC1()
     +...()
 }
 
 Launcher *-- Controller
 class Launcher
 {
-    +void launch()
+    + run()
 }
 @enduml
