@@ -10,6 +10,7 @@ interface Model
 
 interface Ihm
 {
+    {abstract}+run()
     {abstract}+display()
     {abstract}+setViewA(MyModel.EntA)
     {abstract}+handle(..)
@@ -75,6 +76,7 @@ GraphicFactory <-- MyIhmViewA : use
 AnimationFactory <-- MyIhmViewA : use
 class MyIhm
 {
+    +run()
     +display()
     +setViewA(MyModel.EntA)
     +handle(..)
@@ -124,14 +126,15 @@ Controller *--> Ihm
 Controller *-- Ai
 class Controller
 {
+    + run()
     + updateView()
     + UC1()
     +...()
 }
 
-Launcher *-- Controller
-class Launcher
+Launcher <|-- Controller
+interface Launcher
 {
-    + run()
+    {abstract}+ run()
 }
 @enduml
