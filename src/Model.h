@@ -14,8 +14,8 @@ class Model
         std::vector<std::shared_ptr<Tile>> tiles;
 
       public:
-		static constexpr unsigned DIM = 5;
-		static const unsigned SIZE = Board::DIM * Board::DIM;
+        static constexpr unsigned DIM = 5;
+        static const unsigned SIZE = Board::DIM * Board::DIM;
 
         Board();
         Tile& operator[](unsigned i);

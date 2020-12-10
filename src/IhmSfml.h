@@ -1,20 +1,22 @@
-#ifndef VIEW_H
-#define VIEW_H
+#ifndef IHMSFML_H
+#define IHMSFML_H
 
 #include "Controller.h"
 
 #include <memory>
 #include <SFML/Graphics.hpp>
 
-class Controller;
-
-class View
+class IhmSfml : public Ihm
 {
     std::unique_ptr<Controller> ctrl;
+    std::unique_ptr<sf::RenderWindow> window;
+
     std::unique_ptr<sf::CircleShape> circle;
 
   public:
-    View(Controller* ctrl);
-    void draw();
+    IhmSfml();
+    void run();
+    void display();
 };
+
 #endif

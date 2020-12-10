@@ -1,11 +1,10 @@
-#include "Controller.h"
-
-#include <SFML/Graphics.hpp>
+#include "Ihm.h"
+#include "IhmSfml.h"
 
 int main()
 {
-    Controller game;
-    game.run();
+    Ihm* game = new IhmSfml();
+    game->run();
 
     return 0;
 }

@@ -1,41 +1,32 @@
-@startuml MyModelisation
-
-interface Model
-{
-    {abstract}+getEntA()
-    {abstract}+setEntA(..)
-    {abstract}+checkOnWin()
-    {abstract}+..()
-}
+@startuml Modelisation
 
 interface Ihm
 {
     {abstract}+run()
     {abstract}+display()
-    {abstract}+setViewA(MyModel.EntA)
+    {abstract}+setViewA(Model.EntA)
     {abstract}+handle(..)
     {abstract}+...()
 }
 
-note bottom of MyModelEntA : MyModel.EntA (static class)
-class MyModelEntA
+note bottom of ModelEntA : Model.EntA (static class)
+class ModelEntA
 {
     +<data>
 }
 
-note bottom of MyModelEntB : MyModel.EntB (static class)
-class MyModelEntB
+note bottom of ModelEntB : Model.EntB (static class)
+class ModelEntB
 {
     +<data>
 }
 
-Model <|-- MyModel
-MyModel *-- MyModelEntA
-MyModel *-- MyModelEntB
-class MyModel
+Model *-- ModelEntA
+Model *-- ModelEntB
+class Model
 {
     +getEntA()
-    +setEntA(MyModel.EntA)
+    +setEntA(Model.EntA)
     +checkOnWin()
     +..()
 }
@@ -50,8 +41,8 @@ class GraphicFactory
     +{static}get..(..) : ..
 }
 
-note bottom of MyIhmViewA : MyIhm.ViewA (static class)
-class MyIhmViewA
+note bottom of IhmSfmlViewA : IhmSfml.ViewA (static class)
+class IhmSfmlViewA
 {
     -<data>
     -create()
@@ -59,8 +50,8 @@ class MyIhmViewA
     +display()
 }
 
-note bottom of MyIhmViewB : MyIhm.ViewB (static class)
-class MyIhmViewB
+note bottom of IhmSfmlViewB : IhmSfml.ViewB (static class)
+class IhmSfmlViewB
 {
     -<data>
     -create()
@@ -68,17 +59,17 @@ class MyIhmViewB
     +display()
 }
 
-note bottom of MyIhm : easily replacable
-Ihm <|-- MyIhm
-MyIhm *-- MyIhmViewA
-MyIhm *-- MyIhmViewB
-GraphicFactory <-- MyIhmViewA : use
-AnimationFactory <-- MyIhmViewA : use
-class MyIhm
+note bottom of IhmSfml : easily replacable
+Ihm <|-- IhmSfml
+IhmSfml *-- IhmSfmlViewA
+IhmSfml *-- IhmSfmlViewB
+GraphicFactory <-- IhmSfmlViewA : use
+AnimationFactory <-- IhmSfmlViewA : use
+class IhmSfml
 {
     +run()
     +display()
-    +setViewA(MyModel.EntA)
+    +setViewA(Model.EntA)
     +handle(..)
     +...()
 }
@@ -120,7 +111,7 @@ class ThreadPool
 ThreadPool *-- "1..*" SFMLThread
 class SFMLThread
 
-note left of Controller : <b>updateView</b> updates\nViews based on MyModel
+note left of Controller : <b>updateView</b> updates\nViews based on Model
 Controller *-- Model
 Controller *--> Ihm
 Controller *-- Ai
@@ -130,11 +121,5 @@ class Controller
     + updateView()
     + UC1()
     +...()
-}
-
-Launcher <|-- Controller
-interface Launcher
-{
-    {abstract}+ run()
 }
 @enduml
