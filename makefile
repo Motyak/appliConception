@@ -2,7 +2,7 @@ CC=g++
 CFLAGS=#-O3
 LDFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
 SRC=src/Model.cpp src/IhmSfml.cpp src/Controller.cpp src/main.cpp
-OBJ=obj/Model.o obj/IhmSfml.o obj/Controller.o obj/main.o
+OBJ=obj/Model.o obj/Ihm.o obj/IhmSfml.o obj/Controller.o obj/main.o
 EXEC=bin/quixo
 DIRS=bin obj
 
@@ -14,6 +14,9 @@ $(EXEC): $(OBJ)
 obj/Model.o: src/Model.cpp src/Model.h
 	$(CC) -c src/Model.cpp -o obj/Model.o $(CFLAGS)
 
+obj/Ihm.o: src/Ihm.cpp src/Ihm.h
+	$(CC) -c src/Ihm.cpp -o obj/Ihm.o $(CFLAGS)
+
 obj/IhmSfml.o: src/IhmSfml.cpp src/IhmSfml.h
 	$(CC) -c src/IhmSfml.cpp -o obj/IhmSfml.o $(CFLAGS)
 
@@ -24,7 +27,7 @@ obj/main.o: src/main.cpp
 	$(CC) -c src/main.cpp -o obj/main.o $(CFLAGS)
 
 clean:
-	rm -rf $(OBJ)
+	rm -f $(OBJ)
 
 mrproper:
 	rm -rf $(DIRS)

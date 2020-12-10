@@ -1,9 +1,7 @@
 #include "IhmSfml.h"
 
-IhmSfml::IhmSfml()
+IhmSfml::IhmSfml() : Ihm()
 {
-    this->ctrl = std::make_unique<Controller>(this, new Model());
-
     this->window = std::make_unique<sf::RenderWindow>(
         sf::VideoMode(200, 200),
         "SFML works!"

@@ -6,6 +6,8 @@
 
 #include <memory>
 
+class Ihm;
+
 class Controller
 {
     std::unique_ptr<Ihm> ihm;
