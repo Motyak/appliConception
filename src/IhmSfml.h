@@ -16,6 +16,7 @@ class IhmSfml : public Ihm
     void setView(const Model::Board& board);
     void setView(const Model::Player& turn);
     void display();
+    void announceWinner(Model::Player* winner);
 };
 
 #endif

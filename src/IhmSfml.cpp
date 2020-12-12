@@ -43,3 +43,8 @@ void IhmSfml::display()
     this->window->draw(*this->circle);
     this->window->display();
 }
+
+void IhmSfml::announceWinner(Model::Player* winner)
+{
+    
+}

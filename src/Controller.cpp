@@ -19,11 +19,20 @@ bool Controller::submitMove(unsigned from, unsigned to)
 {
     if(this->model->submitMove(from, to))
     {
-        this->playMove(from, to);
-        this->incrementTurn();
+        /* Player's turn */
+        {
+            this->playMove(from, to);
+            this->incrementTurn();
+            if(this->checkOnWin())
+                return true;
+        }
 
-        this->aiPlays();
-        this->incrementTurn();
+        /* AI's turn */
+        {
+            this->aiPlays();
+            this->incrementTurn();
+            this->checkOnWin();
+        }
 
         return true;
     }
@@ -55,4 +64,11 @@ void Controller::aiPlays()
     do { nextMove = this->ai->nextMove(this->model->getGrid()); }
     while(!this->model->submitMove(nextMove.from, nextMove.to));
     this->playMove(nextMove.from, nextMove.to);
+}
+
+bool Controller::checkOnWin()
+{
+    // récupérer l'outcome, si y'a un gagnant on
+    // fait son annonce dans l'interface
+    // puis on renew la game
 }

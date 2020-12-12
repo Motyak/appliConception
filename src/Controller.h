@@ -17,6 +17,7 @@ class Controller
 
     void playMove(unsigned from, unsigned to);
     void aiPlays();
+    bool checkOnWin();
   
   public:
     Controller(Ihm* ihm);

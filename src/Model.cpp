@@ -13,9 +13,13 @@ Model::Tile& Model::Board::operator[](unsigned i)
     return *this->tiles.at(i).get();
 }
 
-std::string Model::calculateOutcome()const
+Model::Player* Model::calculateOutcome()
 {
-    return "";
+    // calculer l'outcome
+    // si y'a gagnant, on retourne l'adresse du joueur courant
+    // sinon on return nullptr
+
+    return nullptr;
 }
 
 void Model::clearBoard()
@@ -125,7 +129,7 @@ bool Model::areOpposite(unsigned from, unsigned to)
     return false;
 }
 
-const Model::Player& Model::getTurn()const { return this->turn; }
+Model::Player& Model::getTurn() { return this->turn; }
 void Model::setTurn(Model::Player turn) { this->turn = turn; }
 
 Model::Board& Model::getGrid() { return this->grid; }

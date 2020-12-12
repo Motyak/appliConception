@@ -14,8 +14,8 @@ void IhmCli::run()
 {
     std::string input = "";
     unsigned from, to;
-
     this->display();
+
     do
     {
         /* Read and Evaluate */
@@ -34,6 +34,11 @@ void IhmCli::run()
 
         /* Loop */
     } while(input != "exit");
+}
+
+void IhmCli::announceWinner(Model::Player* winner)
+{
+
 }
 
 void IhmCli::setView(const Model::Board& board)

@@ -38,12 +38,12 @@ class Model
     static Model::Tile getTile(Model::Player p);
     static Model::Tile getOpponentTile(Model::Player p);
 
-    const Player& getTurn()const;
+    Player& getTurn();
     Board& getGrid();
     void setTurn(const Player turn);
     void setGrid(const Board& board);
 
-    std::string calculateOutcome()const;
+    Player* calculateOutcome();
     void clearBoard();
     bool submitMove(unsigned from, unsigned to);
     void playMove(unsigned from, unsigned to);
