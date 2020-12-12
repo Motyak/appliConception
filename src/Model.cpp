@@ -54,7 +54,7 @@ void Model::playMove(unsigned from, unsigned to)
     int i;
     for(i = from ; i != to ; i += step)
         this->grid[i] = this->grid[i + step];
-    this->grid[i] = Model::Tile::X; //il faut prendre en compte le tour de jeu
+    this->grid[i] = Model::getTile(this->getTurn());
 }
 
 bool Model::submitMove(unsigned from, unsigned to)
@@ -63,7 +63,7 @@ bool Model::submitMove(unsigned from, unsigned to)
         return false;
     if(from > Model::Board::SIZE || to > Model::Board::SIZE)
         return false;
-    if(this->grid[from] == Model::Tile::O);
+    if(this->grid[from] == Model::getOpponentTile(this->getTurn()))
         return false;
     if(!this->positionedOnEdge(from) || !this->positionedOnEdge(to))
         return false;
@@ -71,6 +71,30 @@ bool Model::submitMove(unsigned from, unsigned to)
         return false;
 
     return true;
+}
+
+void Model::incrementTurn()
+{
+    if(this->turn == Model::Player::X)
+        this->turn = Model::Player::O;
+    else
+        this->turn = Model::Player::X;
+}
+
+Model::Tile Model::getTile(Model::Player p)
+{
+    if(p == Model::Player::X)
+        return Model::Tile::X;
+    else
+        return Model::Tile::O;
+}
+
+Model::Tile Model::getOpponentTile(Model::Player p)
+{
+    if(p == Model::Player::X)
+        return Model::Tile::O;
+    else
+        return Model::Tile::X;
 }
 
 bool Model::positionedOnEdge(unsigned index)
@@ -101,16 +125,8 @@ bool Model::areOpposite(unsigned from, unsigned to)
     return false;
 }
 
-// void Model::incrementTurn()
-// { 
-//     if(this->turn == Model::Player::X)
-//         this->turn = Model::Player::O;
-//     else
-//         this->turn = Model::Player::X;
-// }
-
-Model::Player Model::getTurn()const { return this->turn; }
+const Model::Player& Model::getTurn()const { return this->turn; }
 void Model::setTurn(Model::Player turn) { this->turn = turn; }
 
 Model::Board& Model::getGrid() { return this->grid; }
-void Model::setGrid(const Board board) { this->grid = board; }
+void Model::setGrid(const Board& board) { this->grid = board; }

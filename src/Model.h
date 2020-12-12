@@ -35,15 +35,18 @@ class Model
     bool areOpposite(unsigned from, unsigned to);
 
   public:
-    Player getTurn()const;
+    static Model::Tile getTile(Model::Player p);
+    static Model::Tile getOpponentTile(Model::Player p);
+
+    const Player& getTurn()const;
     Board& getGrid();
     void setTurn(const Player turn);
-    void setGrid(const Board board);
+    void setGrid(const Board& board);
 
     std::string calculateOutcome()const;
     void clearBoard();
     bool submitMove(unsigned from, unsigned to);
     void playMove(unsigned from, unsigned to);
-    // void incrementTurn();
+    void incrementTurn();
 };
 #endif
