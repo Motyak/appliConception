@@ -15,6 +15,7 @@ void IhmCli::run()
     std::string input = "";
     unsigned from, to;
 
+    this->display();
     do
     {
         /* Read and Evaluate */
@@ -24,7 +25,7 @@ void IhmCli::run()
             if(this->prompt(input) == "exit")
                 return;
             this->getInputs(input, from, to);
-        } while(this->ctrl->submitMove(from, to));
+        } while(!this->ctrl->submitMove(from, to));
 
 
         /* Print */

@@ -49,11 +49,10 @@ void Model::playMove(unsigned from, unsigned to)
     if(from > to)
         step = -step;
 
-    Tile& save = this->grid[from];
     int i;
     for(i = from ; i != to ; i += step)
         this->grid[i] = this->grid[i + step];
-    this->grid[i] = save;
+    this->grid[i] = Model::Tile::X;
 }
 
 bool Model::submitMove(unsigned from, unsigned to)

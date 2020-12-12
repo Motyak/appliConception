@@ -16,7 +16,11 @@ void Controller::updateView()
 bool Controller::submitMove(unsigned from, unsigned to)
 {
     if(this->model->submitMove(from, to))
+    {
         this->playMove(from, to);
+        return true;
+    }
+    return false;
 }
 
 void Controller::playMove(unsigned from, unsigned to)
