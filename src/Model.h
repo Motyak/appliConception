@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <memory>
+#include <iostream>
 
 class Model
 {
@@ -13,15 +14,16 @@ class Model
     {
         std::vector<std::shared_ptr<Tile>> tiles;
 
+        Tile& operator[](unsigned i);
+
       public:
         static constexpr unsigned DIM = 5;
         static const unsigned SIZE = Board::DIM * Board::DIM;
 
         Board();
-        Tile& operator[](unsigned i);
-        std::string calculateOutcome()const;
-        void clear();
-        void print()const;
+        friend std::ostream& operator<<(std::ostream& out, const Board& board);
+        
+        friend class Model;
     };
 
   private:
@@ -33,5 +35,8 @@ class Model
     Board& getGrid();
     void setTurn(const Player turn);
     void setGrid(const Board board);
+
+    std::string calculateOutcome()const;
+    void clearBoard();
 };
 #endif

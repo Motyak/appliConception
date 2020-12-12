@@ -32,7 +32,7 @@ void IhmCli::run()
 
 
         /* Loop */
-    } while(input != "exit")
+    } while(input != "exit");
 }
 
 void IhmCli::setView(const Model& model)
@@ -43,7 +43,7 @@ void IhmCli::setView(const Model& model)
 void IhmCli::display()
 {
     this->clear();
-    this->model->getGrid().print();
+    std::cout<<this->model->getGrid()<<std::endl;
 }
 
 void IhmCli::clear()
