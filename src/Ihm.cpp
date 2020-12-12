@@ -5,5 +5,5 @@
 
 Ihm::Ihm()
 {
-    this->ctrl = std::make_unique<Controller>(this, new Model());
+    this->ctrl = std::make_unique<Controller>(this);
 }

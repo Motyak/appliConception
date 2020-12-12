@@ -13,6 +13,7 @@ class Ihm
 
   public:
     Ihm();
+    virtual ~Ihm() = default;
     virtual void run() = 0;
     virtual void display() = 0;
 };

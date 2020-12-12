@@ -1,5 +1,6 @@
-#include "Ihm.h"
 #include "IhmSfml.h"
+
+#include <memory>
 
 int main()
 {

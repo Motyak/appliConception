@@ -16,6 +16,9 @@ class Random : public Ai
 
 class MinMax : public Ai
 {
+    virtual void genTree(){std::cout<<"MinMax::genTree"<<std::endl;}
+    virtual void evalNodes(){std::cout<<"MinMax::evalNodes"<<std::endl;}
+
   public:
     void nextMove()
     {
@@ -23,9 +26,6 @@ class MinMax : public Ai
         this->genTree();
         this->evalNodes();
     }
-    
-    virtual void genTree(){std::cout<<"MinMax::genTree"<<std::endl;}
-    virtual void evalNodes(){std::cout<<"MinMax::evalNodes"<<std::endl;}
 };
 
 class MinMaxMulti : public MinMax
