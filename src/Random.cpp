@@ -11,16 +11,12 @@ Model::Move Random::nextMove(Model::Board board)
         y_from = (this->rand() % 2) * 4;
 
     std::vector<Model::Coord> opposites;
-    // si x n'a pas la valeur min, on peut aller en haut
     if(x_from != 0)
         opposites.push_back({0, y_from});
-    // si x n'a pas la valeur max, on peut aller en bas
     if(x_from != 4)
         opposites.push_back({4, y_from});
-    // si y n'a pas la valeur min, on peut aller à gauche
     if(y_from != 0)
         opposites.push_back({x_from, 0});
-    // si y n'a pas la valeur max, on peut aller à droite
     if(y_from != 4)
         opposites.push_back({x_from, 4});
   

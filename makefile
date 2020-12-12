@@ -1,10 +1,8 @@
 CC=g++
 CFLAGS=#-O3
 LDFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-# SRC=src/Model.cpp src/IhmSfml.cpp src/Random.cpp src/Controller.cpp src/main.cpp
-SRC=src/Model.cpp src/IhmCli.cpp src/Random.cpp src/Controller.cpp src/main.cpp
-# OBJ=obj/Model.o obj/Ihm.o obj/IhmSfml.o obj/Random.o obj/Controller.o obj/main.o
-OBJ=obj/Model.o obj/Ihm.o obj/IhmCli.o obj/Random.o obj/Controller.o obj/main.o
+SRC=src/Model.cpp src/IhmSfml.cpp src/IhmCli.cpp src/Random.cpp src/Controller.cpp src/main.cpp
+OBJ=obj/Model.o obj/Ihm.o obj/IhmSfml.o obj/IhmCli.o obj/Random.o obj/Controller.o obj/main.o
 EXEC=bin/quixo
 DIRS=bin obj
 
@@ -21,8 +19,8 @@ obj/Model.o: src/Model.cpp src/Model.h
 obj/Ihm.o: src/Ihm.cpp src/Ihm.h
 	$(CC) -c $< -o $@ $(CFLAGS)
 
-# obj/IhmSfml.o: src/IhmSfml.cpp src/IhmSfml.h
-# 	$(CC) -c $< -o $@ $(CFLAGS)
+obj/IhmSfml.o: src/IhmSfml.cpp src/IhmSfml.h
+	$(CC) -c $< -o $@ $(CFLAGS)
 
 obj/IhmCli.o: src/IhmCli.cpp src/IhmCli.h
 	$(CC) -c $< -o $@ $(CFLAGS)

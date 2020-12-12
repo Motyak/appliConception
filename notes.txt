@@ -22,9 +22,3 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
     -> Dessiner une grille de 5x5 cases (entités individuelles).
     -> Event handling d'un clic sur une case.
 
-
-
-
-
-Donc la c'est fix mais il considère que je suis joueur cercle
-pour le deuxième coup demandé en input.

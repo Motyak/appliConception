@@ -22,6 +22,7 @@ class Controller
     Controller(Ihm* ihm);
     void updateView();
     bool submitMove(unsigned from, unsigned to);
+    void renewGame();
     void incrementTurn();
 };
 

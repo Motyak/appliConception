@@ -30,6 +30,18 @@ bool Controller::submitMove(unsigned from, unsigned to)
     return false;
 }
 
+void Controller::renewGame()
+{
+    this->model->clearBoard();
+    this->updateView();
+}
+
+void Controller::incrementTurn()
+{
+    this->model->incrementTurn();
+    this->updateView();
+}
+
 void Controller::playMove(unsigned from, unsigned to)
 {
     this->model->playMove(from, to);
@@ -40,13 +52,7 @@ void Controller::aiPlays()
 {
     Model::Move nextMove;
 
-    do { nextMove = this->ai->nextMove(this->model->getGrid()); } 
+    do { nextMove = this->ai->nextMove(this->model->getGrid()); }
     while(!this->model->submitMove(nextMove.from, nextMove.to));
     this->playMove(nextMove.from, nextMove.to);
-}
-
-void Controller::incrementTurn()
-{
-    this->model->incrementTurn();
-    this->updateView();
 }
