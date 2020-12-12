@@ -2,6 +2,7 @@
 #define IHM_H
 
 #include "Controller.h"
+#include "Model.h"
 
 #include <memory>
 
@@ -15,6 +16,7 @@ class Ihm
     Ihm();
     virtual ~Ihm() = default;
     virtual void run() = 0;
+    virtual void setView(const Model& model) = 0;
     virtual void display() = 0;
 };
 

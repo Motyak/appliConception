@@ -27,6 +27,11 @@ void IhmSfml::run()
     }
 }
 
+void IhmSfml::setView(const Model& model)
+{
+    
+}
+
 void IhmSfml::display()
 {
     this->window->clear();

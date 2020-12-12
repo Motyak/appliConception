@@ -13,6 +13,7 @@ class IhmSfml : public Ihm
   public:
     IhmSfml();
     void run();
+    void setView(const Model& model);
     void display();
 };
 
