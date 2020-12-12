@@ -35,9 +35,14 @@ void IhmCli::run()
     } while(input != "exit");
 }
 
-void IhmCli::setView(const Model& model)
+void IhmCli::setView(const Model::Board& board)
 {
-    *this->model.get() = model;
+    this->model->setGrid(board);
+}
+
+void IhmCli::setView(const Model::Player& turn)
+{
+    this->model->setTurn(turn);
 }
 
 void IhmCli::display()

@@ -14,21 +14,23 @@ class Model
     {
         std::vector<std::shared_ptr<Tile>> tiles;
 
-        Tile& operator[](unsigned i);
-
       public:
         static constexpr unsigned DIM = 5;
         static const unsigned SIZE = Board::DIM * Board::DIM;
 
         Board();
+        Tile& operator[](unsigned i);
         friend std::ostream& operator<<(std::ostream& out, const Board& board);
-        
+
         friend class Model;
     };
 
   private:
     Player turn;
     Board grid;
+
+    bool positionedOnEdge(unsigned i);
+    bool areOpposite(unsigned from, unsigned to);
 
   public:
     const Player& getTurn()const;
@@ -38,5 +40,7 @@ class Model
 
     std::string calculateOutcome()const;
     void clearBoard();
+    bool submitMove(unsigned from, unsigned to);
+    void playMove(unsigned from, unsigned to);
 };
 #endif

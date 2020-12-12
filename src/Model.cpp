@@ -34,22 +34,77 @@ std::ostream& operator<<(std::ostream& os, const Model::Board& board)
     return os;
 }
 
-const Model::Player& Model::getTurn()const
+void Model::playMove(unsigned from, unsigned to)
 {
-    return this->turn;
+    unsigned x_from = from / Model::Board::DIM;
+    unsigned x_to = to / Model::Board::DIM;
+
+    int step;
+
+    if(x_from == x_to)
+        step = 1;
+    else /* if y_from == y_to */
+        step = 5;
+
+    if(from > to)
+        step = -step;
+
+    Tile& save = this->grid[from];
+    int i;
+    for(i = from ; i != to ; i += step)
+        this->grid[i] = this->grid[i + step];
+    this->grid[i] = save;
 }
 
-Model::Board& Model::getGrid()
+bool Model::submitMove(unsigned from, unsigned to)
 {
-    return this->grid;
+     if(from == to)
+        return false;
+    if(from > Model::Board::SIZE || to > Model::Board::SIZE)
+        return false;
+    if(this->grid[from] == Model::Tile::O)
+        return false;
+    if(this->grid[to] == Model::Tile::O)
+        return false;
+    if(!this->positionedOnEdge(from) || !this->positionedOnEdge(to))
+        return false;
+    if(!this->areOpposite(from, to))
+        return false;
+
+    return true;
 }
 
-void Model::setTurn(const Player turn)
+bool Model::positionedOnEdge(unsigned index)
 {
-    this->turn = turn;
+    unsigned x_index = index / Model::Board::DIM;
+    unsigned y_index = index % Model::Board::DIM;
+
+    if(x_index > 0 && x_index < Model::Board::DIM - 1)
+        return false;
+    if(y_index > 0 && y_index < Model::Board::DIM - 1)
+        return false;
+
+    return true;
 }
 
-void Model::setGrid(const Board board)
+bool Model::areOpposite(unsigned from, unsigned to)
 {
-    this->grid = board;
+    unsigned x_from = from / Model::Board::DIM;
+    unsigned y_from = from % Model::Board::DIM;
+    const unsigned opposites[] {
+        0 + Model::Board::DIM * x_from,
+        0 * Model::Board::DIM + y_from,
+        4 + Model::Board::DIM * x_from,
+        4 * Model::Board::DIM + y_from
+    };
+    for(int i : opposites)
+        if(to == i)
+            return true;
+    return false;
 }
+
+const Model::Player& Model::getTurn()const { return this->turn; }
+void Model::setTurn(const Player turn) { this->turn = turn; }
+
+Model::Board& Model::getGrid() { return this->grid; }
+void Model::setGrid(const Board board) { this->grid = board; }

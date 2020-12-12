@@ -21,18 +21,3 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
 *Interface simple en SFML
     -> Dessiner une grille de 5x5 cases (entités individuelles).
     -> Event handling d'un clic sur une case.
-
-
-
-
-Les entités ne devraient vraiment pas avoir de méthodes.
-Parce que côté IhmCli on est sensé avoir uniquement les
-entités (données), inutile d'avoir accès à des méthodes
-de vérification, etc..
-C'est plutôt le modèle (qui a lui même accès aux entités)
-qui devrait s'en charger exclusivement.
-Tile& operator[](unsigned i) devrait être privée.
-std::string calculateOutcome()const et void clear() devraient
-être dans Model.
-void print()const devrait être une surcharge de l'opérateur '<<'
-pour pouvoir cout l'entité directement.

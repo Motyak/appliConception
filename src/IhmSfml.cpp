@@ -27,9 +27,14 @@ void IhmSfml::run()
     }
 }
 
-void IhmSfml::setView(const Model& model)
+void IhmSfml::setView(const Model::Board& board)
 {
-    
+
+}
+
+void IhmSfml::setView(const Model::Player& turn)
+{
+
 }
 
 void IhmSfml::display()

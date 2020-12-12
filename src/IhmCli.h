@@ -15,7 +15,8 @@ class IhmCli : public Ihm
   public:
     IhmCli();
     void run();
-    void setView(const Model& model);
+    void setView(const Model::Board& board);
+    void setView(const Model::Player& turn);
     void display();
 };
 

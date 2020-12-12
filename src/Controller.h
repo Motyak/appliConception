@@ -14,9 +14,12 @@ class Controller
     std::unique_ptr<Ihm> ihm;
     std::unique_ptr<Model> model;
     std::unique_ptr<Ai> ai;
+
+    void playMove(unsigned from, unsigned to);
   
   public:
     Controller(Ihm* ihm);
+    void updateView();
     bool submitMove(unsigned from, unsigned to);
 };
 
