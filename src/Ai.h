@@ -6,7 +6,7 @@
 class Ai
 {
   public:
-    virtual unsigned nextMove(Model::Board board) = 0;
+    virtual Model::Move nextMove(Model::Board board) = 0;
 };
 
 #endif

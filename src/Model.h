@@ -10,6 +10,8 @@ class Model
   public:
     enum class Tile { EMPTY, X, O };
     enum class Player { X, O };
+    struct Move { unsigned from, to; };
+    struct Coord { unsigned x, y; };
     class Board
     {
         std::vector<std::shared_ptr<Tile>> tiles;

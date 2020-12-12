@@ -21,3 +21,8 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
 *Interface simple en SFML
     -> Dessiner une grille de 5x5 cases (entités individuelles).
     -> Event handling d'un clic sur une case.
+
+
+On peut dire que nextMove() ca retourne un ensemble de coups
+(sort aléatoire), et que c'est côté contrôleur qu'on
+choisit celui à utiliser.

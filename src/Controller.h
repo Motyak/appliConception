@@ -16,6 +16,7 @@ class Controller
     std::unique_ptr<Ai> ai;
 
     void playMove(unsigned from, unsigned to);
+    void aiPlays();
   
   public:
     Controller(Ihm* ihm);

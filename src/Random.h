@@ -5,13 +5,16 @@
 #include "Model.h"
 
 #include <random>
+#include <algorithm>
+#include <chrono>
+#include <array>
 
 class Random : public Ai
 {
     std::random_device rand;
 
   public:
-    unsigned nextMove(Model::Board board);
+    Model::Move nextMove(Model::Board board);
 };
 
 #endif
