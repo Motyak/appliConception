@@ -8,8 +8,8 @@
 class Model
 {
   public:
-    enum class Tile { EMPTY, X, O };
     enum class Player { X, O };
+    enum class Tile { EMPTY, X, O };
     struct Move { unsigned from, to; };
     struct Coord { unsigned x, y; };
     class Board
@@ -35,7 +35,7 @@ class Model
     bool areOpposite(unsigned from, unsigned to);
 
   public:
-    const Player& getTurn()const;
+    Player getTurn()const;
     Board& getGrid();
     void setTurn(const Player turn);
     void setGrid(const Board board);
@@ -44,5 +44,6 @@ class Model
     void clearBoard();
     bool submitMove(unsigned from, unsigned to);
     void playMove(unsigned from, unsigned to);
+    // void incrementTurn();
 };
 #endif

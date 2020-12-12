@@ -10,7 +10,7 @@ Model::Move Random::nextMove(Model::Board board)
     else /* si au milieu */
         y_from = (this->rand() % 2) * 4;
 
-    std::vector<Model::Coord>  opposites;
+    std::vector<Model::Coord> opposites;
     // si x n'a pas la valeur min, on peut aller en haut
     if(x_from != 0)
         opposites.push_back({0, y_from});

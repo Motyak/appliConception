@@ -6,7 +6,6 @@
 
 #include <random>
 #include <algorithm>
-#include <chrono>
 #include <array>
 
 class Random : public Ai

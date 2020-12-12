@@ -1,5 +1,7 @@
 #include "Controller.h"
 
+#include <iostream>
+
 Controller::Controller(Ihm* ihm)
 {
     this->ihm = std::unique_ptr<Ihm>(ihm);
@@ -18,8 +20,8 @@ bool Controller::submitMove(unsigned from, unsigned to)
     if(this->model->submitMove(from, to))
     {
         this->playMove(from, to);
-        // incrémenter le tour de jeu
         this->aiPlays();
+
         return true;
     }
     return false;

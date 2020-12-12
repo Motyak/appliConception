@@ -23,6 +23,12 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
     -> Event handling d'un clic sur une case.
 
 
-On peut dire que nextMove() ca retourne un ensemble de coups
-(sort aléatoire), et que c'est côté contrôleur qu'on
-choisit celui à utiliser.
+
+
+
+
+Le bot aussi il submit le move, du coup il faut aussi
+passer le joueur en paramètre de la méthode submitMove.
+Mais on a accès au turn depuis le Model, du coup
+pas besoin de passer un troisième param.
+

@@ -1,5 +1,7 @@
 #include "Model.h"
 
+#include <iostream>
+
 Model::Board::Board()
 {
     for(int i = 0 ; i < Model::Board::SIZE ; ++i)
@@ -61,9 +63,7 @@ bool Model::submitMove(unsigned from, unsigned to)
         return false;
     if(from > Model::Board::SIZE || to > Model::Board::SIZE)
         return false;
-    if(this->grid[from] == Model::Tile::O)
-        return false;
-    if(this->grid[to] == Model::Tile::O)
+    if(this->grid[from] == Model::Tile::O);
         return false;
     if(!this->positionedOnEdge(from) || !this->positionedOnEdge(to))
         return false;
@@ -79,9 +79,8 @@ bool Model::positionedOnEdge(unsigned index)
     unsigned y_index = index % Model::Board::DIM;
 
     if(x_index > 0 && x_index < Model::Board::DIM - 1)
-        return false;
-    if(y_index > 0 && y_index < Model::Board::DIM - 1)
-        return false;
+        if(y_index > 0 && y_index < Model::Board::DIM - 1)
+            return false;
 
     return true;
 }
@@ -102,8 +101,16 @@ bool Model::areOpposite(unsigned from, unsigned to)
     return false;
 }
 
-const Model::Player& Model::getTurn()const { return this->turn; }
-void Model::setTurn(const Player turn) { this->turn = turn; }
+// void Model::incrementTurn()
+// { 
+//     if(this->turn == Model::Player::X)
+//         this->turn = Model::Player::O;
+//     else
+//         this->turn = Model::Player::X;
+// }
+
+Model::Player Model::getTurn()const { return this->turn; }
+void Model::setTurn(Model::Player turn) { this->turn = turn; }
 
 Model::Board& Model::getGrid() { return this->grid; }
 void Model::setGrid(const Board board) { this->grid = board; }
