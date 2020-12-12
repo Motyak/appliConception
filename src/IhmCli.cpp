@@ -14,27 +14,25 @@ void IhmCli::run()
 {
     std::string input = "";
     unsigned from, to;
-    while(input != "exit")
-    {
-        /* Read */
-        std::cout<<"Quel sera votre prochain coup ?"<<std::endl;
-        this->getInputs(from, to);
 
-        /* Evaluate */
-        if(input == "exit")
-            return;
-        while(this->ctrl->submitMove(from, to))
+    do
+    {
+        /* Read and Evaluate */
+        std::cout<<"Quel sera votre prochain coup ?"<<std::endl;
+        do
         {
-            std::cout<<"Coup interdit!"<<std::endl;
-            this->getInputs(from, to);
-        }
+            if(this->prompt(input) == "exit")
+                return;
+            this->getInputs(input, from, to);
+        } while(this->ctrl->submitMove(from, to));
 
 
         /* Print */
         this->display();
 
+
         /* Loop */
-    }
+    } while(input != "exit")
 }
 
 void IhmCli::setView(const Model& model)
@@ -53,16 +51,19 @@ void IhmCli::clear()
     std::cout<<"\e[2J";
 }
 
-void IhmCli::getInputs(unsigned& from, unsigned& to)
+void IhmCli::getInputs(const std::string& input, unsigned& from, unsigned& to)
 {
-    std::string input;
     const std::regex expr("(\\d{1,2})\\,(\\d{1,2})");
     std::smatch matches;
-
-    std::cout<<"\u001b[32mquixo\u001b[0m> ";
-    std::cin>>input;
 
     std::regex_search(input, matches, expr);
     from = std::stoul(matches[1].str());
     to = std::stoul(matches[2].str());
+}
+
+std::string IhmCli::prompt(std::string& input)
+{
+    std::cout<<"\u001b[32mquixo\u001b[0m> ";
+    std::cin>>input;
+    return input;
 }
