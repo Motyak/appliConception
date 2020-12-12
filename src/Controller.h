@@ -17,6 +17,7 @@ class Controller
   
   public:
     Controller(Ihm* ihm);
+    bool submitMove(unsigned from, unsigned to);
 };
 
 #endif

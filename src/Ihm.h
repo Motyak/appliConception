@@ -10,6 +10,7 @@ class Controller;
 
 class Ihm
 {
+  protected:
     std::unique_ptr<Controller> ctrl;
 
   public:

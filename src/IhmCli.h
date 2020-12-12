@@ -8,6 +8,9 @@ class IhmCli : public Ihm
 {
     std::unique_ptr<Model> model;
 
+    void clear();
+    void getInputs(unsigned& from, unsigned& to);
+
   public:
     IhmCli();
     void run();

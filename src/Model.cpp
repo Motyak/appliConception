@@ -31,7 +31,7 @@ void Model::Board::print()const
     {
         for(int col = 0 ; col < Model::Board::DIM ; ++col)
             std::cout<<map[(int)*this->tiles.at(row * Model::Board::DIM + col).get()]<<"\t";
-        std::cout<<std::endl;
+        std::cout<<"\n\n\n";
     }
 }
 
