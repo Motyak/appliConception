@@ -3,13 +3,33 @@
 IhmSfml::IhmSfml() : Ihm()
 {
     this->window = std::make_unique<sf::RenderWindow>(
-        sf::VideoMode(200, 200),
-        "SFML works!"
+        sf::VideoMode(900, 900),
+        "Quixo",
+        sf::Style::Titlebar | sf::Style::Close
     );
 
-    // example view
-    this->circle = std::make_unique<sf::CircleShape>(100.f);
-    this->circle->setFillColor(sf::Color::Green);
+    this->board = std::make_unique<sf::CircleShape>(450.f);
+    this->board->setFillColor(sf::Color(40, 10, 10));
+
+    this->backgroundTex = std::make_unique<sf::Texture>();
+    this->backgroundTex->loadFromFile("res/img/background.jpg");
+
+    this->background = std::make_unique<sf::Sprite>(*this->backgroundTex);
+
+    this->gridBackgroundTex = std::make_unique<sf::Texture>();
+    this->gridBackgroundTex->loadFromFile("res/img/grid.jpg");
+
+    this->gridBackground = std::make_unique<sf::Sprite>(*this->gridBackgroundTex);
+    this->gridBackground->setPosition(140, 140);
+
+    this->font = std::make_unique<sf::Font>();
+    this->font->loadFromFile("res/fonts/segoescb.ttf");
+
+    this->text = std::make_unique<sf::Text>();
+    this->text->setFont(*this->font);
+    this->text->setString("X O");
+    this->text->setCharacterSize(96);
+    this->text->setFillColor(sf::Color::White);
 }
 
 void IhmSfml::run()
@@ -40,7 +60,12 @@ void IhmSfml::setView(const Model::Player& turn)
 void IhmSfml::display()
 {
     this->window->clear();
-    this->window->draw(*this->circle);
+    // for(const auto& c : this->grid)
+    //     this->window->draw(*c);
+    this->window->draw(*this->background);
+    this->window->draw(*this->board);
+    this->window->draw(*this->gridBackground);
+    this->window->draw(*this->text);
     this->window->display();
 }
 

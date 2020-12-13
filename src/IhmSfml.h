@@ -8,7 +8,16 @@
 class IhmSfml : public Ihm
 {
     std::unique_ptr<sf::RenderWindow> window;
-    std::unique_ptr<sf::CircleShape> circle;
+
+    std::unique_ptr<sf::Text> text;
+
+    std::unique_ptr<sf::Texture> backgroundTex;
+    std::unique_ptr<sf::Sprite> background;
+    std::unique_ptr<sf::Texture> gridBackgroundTex;
+    std::unique_ptr<sf::Sprite> gridBackground;
+    std::unique_ptr<sf::Font> font;
+    std::unique_ptr<sf::CircleShape> board;
+
 
   public:
     IhmSfml();
