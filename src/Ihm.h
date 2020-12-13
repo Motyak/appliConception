@@ -17,7 +17,7 @@ class Ihm
     Ihm();
     virtual ~Ihm() = default;
     virtual void run() = 0;
-    virtual void setView(const Model::Board& board) = 0;
+    virtual void setView(Model::Board& board) = 0;
     virtual void setView(const Model::Player& turn) = 0;
     virtual void display() = 0;
     virtual void announceWinner(const Model::Player& winner) = 0;

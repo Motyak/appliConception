@@ -25,7 +25,7 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
 
 
 
-Quand on clique sur une pièce, sa couleur change :
-setColor(sf::Color(255, 255, 255, 75));
-ou
-this->hover[index]->setColor(sf::Color(133, 223, 232, 75));
+J'ai l'impression qu'il y a une desync entre le modele et la vue.
+Il ne détecte plus quand quelqu'un gagne et renew à des moments importuns.
+Dans le commit 'determiner winner OK' la condition de win marchait, 
+=> regarder ce qu'on a cassé entre ce commit et celui juste après.

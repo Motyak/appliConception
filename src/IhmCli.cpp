@@ -48,7 +48,7 @@ void IhmCli::announceWinner(const Model::Player& winner)
     this->pause(2);
 }
 
-void IhmCli::setView(const Model::Board& board)
+void IhmCli::setView(Model::Board& board)
 {
     this->model->setGrid(board);
 }

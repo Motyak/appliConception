@@ -1,7 +1,5 @@
 #include "IhmSfml.h"
 
-// #include <cmath>
-
 IhmSfml::IhmSfml() : Ihm()
 {
     this->window = std::make_unique<sf::RenderWindow>(
@@ -37,7 +35,7 @@ IhmSfml::IhmSfml() : Ihm()
             unsigned index = x * Model::Board::DIM + y;
             this->tiles[index] = std::make_unique<sf::Text>();
             this->tiles[index]->setFont(*this->font);
-            this->tiles[index]->setString("X");
+            this->tiles[index]->setString(" ");
             this->tiles[index]->setCharacterSize(85);
             this->tiles[index]->setFillColor(sf::Color::Black);
             this->tiles[index]->setPosition(169 + 125 * x, 145 + 125 * y);
@@ -74,7 +72,7 @@ void IhmSfml::run()
 
                     if(this->selectedTileIndex.get())
                     {
-                        // this->ctrl->submitMove(this->selectedTileIndex, index);
+                        this->ctrl->submitMove(*this->selectedTileIndex.get(), index);
                         this->selected[*this->selectedTileIndex.get()]->setColor(sf::Color(255, 255, 255, 0));
                         this->selectedTileIndex.release();
                     }
@@ -99,14 +97,26 @@ void IhmSfml::run()
     }
 }
 
-void IhmSfml::setView(const Model::Board& board)
+void IhmSfml::setView(Model::Board& board)
 {
-
+    std::map<Model::Tile,std::string> map {
+        {Model::Tile::EMPTY, " "},
+        {Model::Tile::X, "X"},
+        {Model::Tile::O, "O"}
+    };
+    for(int x = 0 ; x < Model::Board::DIM ; ++x)
+    {
+        for(int y = 0 ; y < Model::Board::DIM ; ++y)
+        {
+            sf::Text& t = *this->tiles[x * Model::Board::DIM + y].get();
+            t.setString(map[board[y * Model::Board::DIM + x]]);
+        }
+    }
 }
 
 void IhmSfml::setView(const Model::Player& turn)
 {
-
+    ;
 }
 
 void IhmSfml::display()
