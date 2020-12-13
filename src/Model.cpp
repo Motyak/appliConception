@@ -21,7 +21,6 @@ Model::Tile& Model::Board::operator[](unsigned i)
 bool Model::hasAWinner()
 {
     int sumRow, sumCol, sumDiag;
-    sumRow = sumCol = sumDiag = 0;
 
     for(int x = 0 ; x < Model::Board::DIM ; ++x)
     {
@@ -39,49 +38,6 @@ bool Model::hasAWinner()
     }
     if(sumDiag == 5 || sumDiag == -5) return true;
 
-    return false;
-
-    // if(this->calculateRows())
-    //     return true;
-    // if(this->calculateCols())
-    //     return true;
-    // if(this->calculateDiags())
-    //     return true;
-    
-    // return false;
-}
-
-bool Model::calculateRows()
-{
-    int sum = 0;
-    int y = 0;
-    for(int x = 0 ; x < Model::Board::DIM ; ++x)
-        sum += (int)this->grid[x * Model::Board::DIM + y];
-
-    std::cout<<"sumrows="<<sum<<std::endl;
-
-    if(sum == 5 || sum == -5)
-        return true;
-    return false;
-}
-
-bool Model::calculateCols()
-{
-    int sum = 0;
-    int x = 0;
-    for(int y = 0 ; y < Model::Board::DIM ; ++y)
-        sum += (int)this->grid[x * Model::Board::DIM + y];
-
-    std::cout<<"sumcols="<<sum<<std::endl;
-
-    if(sum == 5 || sum == -5)
-        return true;
-    return false;
-}
-    
-bool Model::calculateDiags()
-{
-    /* à faire */
     return false;
 }
 

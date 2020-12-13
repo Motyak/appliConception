@@ -2,6 +2,8 @@
 
 #include <iostream>
 #include <regex>
+#include <thread>
+#include <chrono>
 
 IhmCli::IhmCli()
 {
@@ -43,7 +45,7 @@ void IhmCli::announceWinner(const Model::Player& winner)
         std::cout<<"Joueur X a gagné!"<<std::endl;
     else /* Y */
         std::cout<<"Joueur Y a gagné!"<<std::endl;
-    // wait 2s..
+    this->pause(2);
 }
 
 void IhmCli::setView(const Model::Board& board)
@@ -60,6 +62,11 @@ void IhmCli::display()
 {
     this->clear();
     std::cout<<this->model->getGrid()<<std::endl;
+}
+
+void IhmCli::pause(unsigned s)
+{
+    std::this_thread::sleep_for(std::chrono::seconds(s));
 }
 
 void IhmCli::clear()

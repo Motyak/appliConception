@@ -34,9 +34,6 @@ class Model
 
     bool positionedOnEdge(unsigned i);
     bool areOpposite(unsigned from, unsigned to);
-    bool calculateRows();
-    bool calculateCols();
-    bool calculateDiags();
 
   public:
     static Tile getTile(Player p);
