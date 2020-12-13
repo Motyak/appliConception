@@ -1,6 +1,11 @@
 #include "Model.h"
 
-#include <iostream>
+#include <map>
+
+Model::Model()
+{
+    this->turn = Model::Player::X;
+}
 
 Model::Board::Board()
 {
@@ -15,11 +20,26 @@ Model::Tile& Model::Board::operator[](unsigned i)
 
 Model::Player* Model::calculateOutcome()
 {
-    // calculer l'outcome
-    // si y'a gagnant, on retourne l'adresse du joueur courant
-    // sinon on return nullptr
+    Model::Player* p = &this->getTurn();
 
-    return nullptr;
+    if(this->calculateRows(p))
+        return p;
+    // if(this->calculateCols(winner))
+    //     return winner;
+    // if(this->calculateDiags(winner))
+    //     return winner;
+
+    return p;
+}
+
+Model::Player* Model::calculateRows(Player* player)
+{
+    // pour chaque row, faire la somme puis vérifier
+    // si résultat = 5 ou -5 retourner le joueur correspondant
+    // for(int x = 0 ; x < Model::Board::DIM ; ++x)
+    //     for(int y = 0 ; y < Model::Board::DIM ; ++y)
+            
+                
 }
 
 void Model::clearBoard()
@@ -30,11 +50,15 @@ void Model::clearBoard()
 
 std::ostream& operator<<(std::ostream& os, const Model::Board& board)
 {
-    const std::string map[] = {"\\", "X", "O"};
+    std::map<Model::Tile,std::string> map {
+        {Model::Tile::EMPTY, "\\"},
+        {Model::Tile::X, "X"},
+        {Model::Tile::O, "O"}
+    };
     for(int row = 0 ; row < Model::Board::DIM ; ++row)
     {
         for(int col = 0 ; col < Model::Board::DIM ; ++col)
-            os<<map[(int)*board.tiles.at(row * Model::Board::DIM + col).get()]<<"\t";
+            os<<map[*board.tiles.at(row * Model::Board::DIM + col).get()]<<"\t";
         os<<"\n\n\n";
     }
     return os;

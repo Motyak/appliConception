@@ -8,8 +8,9 @@
 class Model
 {
   public:
-    enum class Player { X, O };
-    enum class Tile { EMPTY, X, O };
+    enum class Player { X = 1, O = -1};
+    // enum class Player { X , O };
+    enum class Tile { EMPTY = 0, X = 1, O = -1 };
     struct Move { unsigned from, to; };
     struct Coord { unsigned x, y; };
     class Board
@@ -33,11 +34,13 @@ class Model
 
     bool positionedOnEdge(unsigned i);
     bool areOpposite(unsigned from, unsigned to);
+    Player* calculateRows(Player* player);
 
   public:
-    static Model::Tile getTile(Model::Player p);
-    static Model::Tile getOpponentTile(Model::Player p);
+    static Tile getTile(Player p);
+    static Tile getOpponentTile(Player p);
 
+    Model();
     Player& getTurn();
     Board& getGrid();
     void setTurn(const Player turn);
