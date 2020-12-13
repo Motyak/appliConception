@@ -9,7 +9,7 @@ class IhmSfml : public Ihm
 {
     std::unique_ptr<sf::RenderWindow> window;
 
-    std::unique_ptr<sf::Text> text;
+    std::unique_ptr<sf::Text> tiles[25];
 
     std::unique_ptr<sf::Texture> backgroundTex;
     std::unique_ptr<sf::Sprite> background;

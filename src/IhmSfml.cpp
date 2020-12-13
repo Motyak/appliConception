@@ -24,12 +24,22 @@ IhmSfml::IhmSfml() : Ihm()
 
     this->font = std::make_unique<sf::Font>();
     this->font->loadFromFile("res/fonts/segoescb.ttf");
+    // this->font->loadFromFile("res/fonts/arialbd.ttf");
 
-    this->text = std::make_unique<sf::Text>();
-    this->text->setFont(*this->font);
-    this->text->setString("X O");
-    this->text->setCharacterSize(96);
-    this->text->setFillColor(sf::Color::White);
+    for(int x = 0 ; x < Model::Board::DIM ; ++x)
+    {
+        for(int y = 0 ; y < Model::Board::DIM ; ++y)
+        {
+            unsigned index = x * Model::Board::DIM + y;
+            this->tiles[index] = std::make_unique<sf::Text>();
+            this->tiles[index]->setFont(*this->font);
+            this->tiles[index]->setString("X");
+            this->tiles[index]->setCharacterSize(85);
+            this->tiles[index]->setFillColor(sf::Color::Black);
+            this->tiles[index]->setPosition(169 + 125 * x, 145 + 125 * y);
+
+        }
+    }
 }
 
 void IhmSfml::run()
@@ -60,12 +70,11 @@ void IhmSfml::setView(const Model::Player& turn)
 void IhmSfml::display()
 {
     this->window->clear();
-    // for(const auto& c : this->grid)
-    //     this->window->draw(*c);
     this->window->draw(*this->background);
     this->window->draw(*this->board);
     this->window->draw(*this->gridBackground);
-    this->window->draw(*this->text);
+    for(int i = 0 ; i < Model::Board::SIZE ; ++i)
+        this->window->draw(*this->tiles[i]);
     this->window->display();
 }
 
