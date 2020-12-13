@@ -22,6 +22,10 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
     -> Dessiner une grille de 5x5 cases (entités individuelles).
     -> Event handling d'un clic sur une case.
 
-On pourrait stocker l'outcome de la partie (gagnant) dans
-le modèle.
-calculateOutcome() permettrait de le calculer.
+
+
+
+Quand on clique sur une pièce, sa couleur change :
+setColor(sf::Color(255, 255, 255, 75));
+ou
+this->hover[index]->setColor(sf::Color(133, 223, 232, 75));
