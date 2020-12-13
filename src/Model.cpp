@@ -18,28 +18,71 @@ Model::Tile& Model::Board::operator[](unsigned i)
     return *this->tiles.at(i).get();
 }
 
-Model::Player* Model::calculateOutcome()
+bool Model::hasAWinner()
 {
-    Model::Player* p = &this->getTurn();
+    int sumRow, sumCol, sumDiag;
+    sumRow = sumCol = sumDiag = 0;
 
-    if(this->calculateRows(p))
-        return p;
-    // if(this->calculateCols(winner))
-    //     return winner;
-    // if(this->calculateDiags(winner))
-    //     return winner;
+    for(int x = 0 ; x < Model::Board::DIM ; ++x)
+    {
+        for(int y = 0 ; y < Model::Board::DIM ; ++y)
+        {
+            sumRow += (int)this->grid[x * Model::Board::DIM + y];
+            sumCol += (int)this->grid[y * Model::Board::DIM + x];
+        }
+        if(sumRow == 5 || sumRow == -5) return true;
+        sumRow = 0;
+        if(sumCol == 5 || sumCol == -5) return true;
+        sumCol = 0;
 
-    return p;
+        sumDiag += (int)this->grid[x * Model::Board::DIM + x];
+    }
+    if(sumDiag == 5 || sumDiag == -5) return true;
+
+    return false;
+
+    // if(this->calculateRows())
+    //     return true;
+    // if(this->calculateCols())
+    //     return true;
+    // if(this->calculateDiags())
+    //     return true;
+    
+    // return false;
 }
 
-Model::Player* Model::calculateRows(Player* player)
+bool Model::calculateRows()
 {
-    // pour chaque row, faire la somme puis vérifier
-    // si résultat = 5 ou -5 retourner le joueur correspondant
-    // for(int x = 0 ; x < Model::Board::DIM ; ++x)
-    //     for(int y = 0 ; y < Model::Board::DIM ; ++y)
-            
-                
+    int sum = 0;
+    int y = 0;
+    for(int x = 0 ; x < Model::Board::DIM ; ++x)
+        sum += (int)this->grid[x * Model::Board::DIM + y];
+
+    std::cout<<"sumrows="<<sum<<std::endl;
+
+    if(sum == 5 || sum == -5)
+        return true;
+    return false;
+}
+
+bool Model::calculateCols()
+{
+    int sum = 0;
+    int x = 0;
+    for(int y = 0 ; y < Model::Board::DIM ; ++y)
+        sum += (int)this->grid[x * Model::Board::DIM + y];
+
+    std::cout<<"sumcols="<<sum<<std::endl;
+
+    if(sum == 5 || sum == -5)
+        return true;
+    return false;
+}
+    
+bool Model::calculateDiags()
+{
+    /* à faire */
+    return false;
 }
 
 void Model::clearBoard()

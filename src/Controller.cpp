@@ -20,16 +20,16 @@ bool Controller::submitMove(unsigned from, unsigned to)
         /* Player's turn */
         {
             this->playMove(from, to);
+            if(this->checkOnWin())
+                return true;
             this->incrementTurn();
-            // if(this->checkOnWin())
-            //     return true;
         }
 
         /* AI's turn */
         {
             this->aiPlays();
+            this->checkOnWin();
             this->incrementTurn();
-            // this->checkOnWin();
         }
 
         return true;
@@ -66,7 +66,11 @@ void Controller::aiPlays()
 
 bool Controller::checkOnWin()
 {
-    // récupérer l'outcome, si y'a un gagnant on
-    // fait son annonce dans l'interface
-    // puis on renew la game
+    if(this->model->hasAWinner())
+    {
+        this->ihm->announceWinner(this->model->getTurn());
+        this->renewGame();
+        return true;
+    }
+    return false;
 }

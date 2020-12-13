@@ -36,9 +36,14 @@ void IhmCli::run()
     } while(input != "exit");
 }
 
-void IhmCli::announceWinner(Model::Player* winner)
+void IhmCli::announceWinner(const Model::Player& winner)
 {
-
+    this->display();
+    if(winner == Model::Player::X)
+        std::cout<<"Joueur X a gagné!"<<std::endl;
+    else /* Y */
+        std::cout<<"Joueur Y a gagné!"<<std::endl;
+    // wait 2s..
 }
 
 void IhmCli::setView(const Model::Board& board)

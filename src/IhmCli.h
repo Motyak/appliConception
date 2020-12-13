@@ -17,7 +17,7 @@ class IhmCli : public Ihm
     void run();
     void setView(const Model::Board& board);
     void setView(const Model::Player& turn);
-    void announceWinner(Model::Player* winner);
+    void announceWinner(const Model::Player& winner);
     void display();
 };
 

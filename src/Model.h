@@ -34,7 +34,9 @@ class Model
 
     bool positionedOnEdge(unsigned i);
     bool areOpposite(unsigned from, unsigned to);
-    Player* calculateRows(Player* player);
+    bool calculateRows();
+    bool calculateCols();
+    bool calculateDiags();
 
   public:
     static Tile getTile(Player p);
@@ -46,7 +48,7 @@ class Model
     void setTurn(const Player turn);
     void setGrid(const Board& board);
 
-    Player* calculateOutcome();
+    bool hasAWinner();
     void clearBoard();
     bool submitMove(unsigned from, unsigned to);
     void playMove(unsigned from, unsigned to);

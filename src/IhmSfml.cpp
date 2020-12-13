@@ -44,7 +44,7 @@ void IhmSfml::display()
     this->window->display();
 }
 
-void IhmSfml::announceWinner(Model::Player* winner)
+void IhmSfml::announceWinner(const Model::Player& winner)
 {
     
 }
