@@ -60,7 +60,7 @@ void IhmCli::setView(const Model::Player& turn)
 
 void IhmCli::display()
 {
-    // this->clear();   //debug
+    this->clear();
     std::cout<<this->model->getGrid()<<std::endl;
 }
 

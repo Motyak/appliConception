@@ -7,6 +7,8 @@
 
 class IhmSfml : public Ihm
 {
+    bool paused;
+    Model::Board boardStorage;
     std::unique_ptr<unsigned> selectedTileIndex;
 
     std::unique_ptr<sf::RenderWindow> window;
@@ -21,7 +23,9 @@ class IhmSfml : public Ihm
     std::unique_ptr<sf::Sprite> selected[25];
     std::unique_ptr<sf::Texture> hoverTex;
     std::unique_ptr<sf::Sprite> hover[25];
+    std::unique_ptr<sf::Text> winner;
 
+    void exitPause();
 
   public:
     IhmSfml();

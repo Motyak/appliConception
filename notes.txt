@@ -22,10 +22,3 @@ Continuer de s'inspirer de https://github.com/olbrew/space-invaders/
     -> Dessiner une grille de 5x5 cases (entités individuelles).
     -> Event handling d'un clic sur une case.
 
-
-
-
-J'ai l'impression qu'il y a une desync entre le modele et la vue.
-Il ne détecte plus quand quelqu'un gagne et renew à des moments importuns.
-Dans le commit 'determiner winner OK' la condition de win marchait, 
-=> regarder ce qu'on a cassé entre ce commit et celui juste après.
