@@ -5,8 +5,8 @@
 
 int main()
 {
-    // Ihm* game = new IhmSfml();
-    Ihm* game = new IhmCli();
+     Ihm* game = new IhmSfml();
+    // Ihm* game = new IhmCli();
 
     game->run();
 

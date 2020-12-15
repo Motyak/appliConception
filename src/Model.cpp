@@ -20,7 +20,8 @@ Model::Tile& Model::Board::operator[](unsigned i)
 
 bool Model::hasAWinner()
 {
-    int sumRow, sumCol, sumDiag;
+    int sumRow, sumCol, sumDiag1, sumDiag2;
+    sumRow = sumCol = sumDiag1 = sumDiag2 = 0;
 
     for(int x = 0 ; x < Model::Board::DIM ; ++x)
     {
@@ -34,9 +35,13 @@ bool Model::hasAWinner()
         if(sumCol == 5 || sumCol == -5) return true;
         sumCol = 0;
 
-        sumDiag += (int)this->grid[x * Model::Board::DIM + x];
+        sumDiag1 += (int)this->grid[x * Model::Board::DIM + x];
+        sumDiag2 += (int)this->grid[x * Model::Board::DIM + (Model::Board::DIM - 1 - x)];
     }
-    if(sumDiag == 5 || sumDiag == -5) return true;
+    if(sumDiag1 == 5 || sumDiag1 == -5) return true;
+    sumDiag1 = 0;
+    if(sumDiag2 == 5 || sumDiag2 == -5) return true;
+    sumDiag2 = 0;
 
     return false;
 }

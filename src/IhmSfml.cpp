@@ -79,7 +79,7 @@ void IhmSfml::run()
                     else
                     {
                         this->selectedTileIndex.reset(new unsigned(index));
-                        this->selected[index]->setColor(sf::Color(255, 255, 255, 75));
+                        this->selected[index]->setColor(sf::Color(255, 255, 255, 150));
                     }
                 }
                 else
