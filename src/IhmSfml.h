@@ -25,7 +25,13 @@ class IhmSfml : public Ihm
     std::unique_ptr<sf::Sprite> hover[25];
     std::unique_ptr<sf::Text> winner;
 
+    void handleClickDuringPause();
+    void handleClickIn(sf::Event evt);
+    void handleClickOut();
+
+    void buildGraphics();
     void exitPause();
+    bool insideGrid(unsigned x, unsigned y);
 
   public:
     IhmSfml();

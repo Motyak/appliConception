@@ -3,8 +3,94 @@
 IhmSfml::IhmSfml() : Ihm()
 {
     this->paused = false;
+    this->selectedTileIndex = nullptr;
+    this->buildGraphics();
+}
 
-    this->window = std::make_unique<sf::RenderWindow>(
+void IhmSfml::run()
+{
+    // event handling + rendering loop
+    while (this->window->isOpen())
+    {
+        sf::Event evt;
+        while (this->window->pollEvent(evt))
+        {
+            if (evt.type == sf::Event::Closed)
+                this->window->close();
+
+            if (evt.type == sf::Event::MouseButtonReleased)
+            {
+                if(this->paused) this->handleClickDuringPause();
+                else
+                {
+                    if(this->insideGrid(evt.mouseButton.x, evt.mouseButton.y))
+                        this->handleClickIn(evt);
+                    else
+                        this->handleClickOut();
+                }
+            }
+        }
+        this->display();
+    }
+}
+
+void IhmSfml::display()
+{
+    this->window->clear();
+    this->window->draw(*this->background);
+    this->window->draw(*this->board);
+    this->window->draw(*this->gridBackground);
+    for(int i = 0 ; i < Model::Board::SIZE ; ++i)
+    {
+        this->window->draw(*this->tiles[i]);
+        this->window->draw(*this->selected[i]);
+    }
+    this->window->draw(*this->winner);
+    this->window->display();
+}
+
+void IhmSfml::setView(Model::Board& board)
+{
+    // if the game is in pause, save the new board in storage
+    // to restore it after the user unpaused
+    if(this->paused)
+        this->boardStorage = board;
+    else
+    {
+        std::map<Model::Tile,std::string> map {
+            {Model::Tile::EMPTY, " "},
+            {Model::Tile::X, "X"},
+            {Model::Tile::O, "O"}
+        };
+        for(int x = 0 ; x < Model::Board::DIM ; ++x)
+        {
+            for(int y = 0 ; y < Model::Board::DIM ; ++y)
+            {
+                sf::Text& t = *this->tiles[x * Model::Board::DIM + y].get();
+                t.setString(map[board[y * Model::Board::DIM + x]]);
+            }
+        }
+    }
+}
+
+void IhmSfml::setView(const Model::Player& turn)
+{
+    ;
+}
+
+void IhmSfml::announceWinner(const Model::Player& winner)
+{
+    if(winner == Model::Player::X)
+        this->winner->setString("YOU WIN");
+    else /* player O */
+        this->winner->setString("YOU LOSE");
+
+    this->paused = true;
+}
+
+void IhmSfml::buildGraphics()
+{
+     this->window = std::make_unique<sf::RenderWindow>(
         sf::VideoMode(900, 900),
         "Quixo",
         sf::Style::Titlebar | sf::Style::Close
@@ -55,112 +141,9 @@ IhmSfml::IhmSfml() : Ihm()
     }
 }
 
-void IhmSfml::run()
+bool IhmSfml::insideGrid(unsigned x, unsigned y)
 {
-    // event handling + rendering loop
-    while (this->window->isOpen())
-    {
-        sf::Event event;
-        while (this->window->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                this->window->close();
-
-            if (event.type == sf::Event::MouseButtonReleased)
-            {
-                if(this->paused) this->exitPause();
-                else
-                {
-                    unsigned mouse_x = event.mouseButton.x;
-                    unsigned mouse_y = event.mouseButton.y;
-                    if(event.mouseButton.x > 139 && event.mouseButton.x < 760 &&
-                    event.mouseButton.y > 139 && event.mouseButton.y < 760)
-                    {
-                        unsigned index_x = std::round((mouse_y - 140) / 125);
-                        unsigned index_y = std::round((mouse_x - 140) / 125);
-                        unsigned index = index_x * Model::Board::DIM + index_y;
-                        std::cout<<"index = "<<index<<"<=>("<<index_x<<";"<<index_y<<")"<<std::endl;
-
-                        if(this->selectedTileIndex.get())
-                        {
-                            this->ctrl->submitMove(*this->selectedTileIndex.get(), index);
-                            this->selected[*this->selectedTileIndex.get()]->setColor(sf::Color(255, 255, 255, 0));
-                            this->selectedTileIndex.release();
-                        }
-                        else
-                        {
-                            this->selectedTileIndex.reset(new unsigned(index));
-                            this->selected[index]->setColor(sf::Color(255, 255, 255, 150));
-                        }
-                    }
-                    else
-                    {
-                        std::cout<<"clic out"<<std::endl;
-                        if(this->selectedTileIndex.get())
-                        {
-                            this->selected[*this->selectedTileIndex.get()]->setColor(sf::Color(255, 255, 255, 0));
-                            this->selectedTileIndex.release();
-                        }
-                    }
-                }
-            }
-        }
-        this->display();
-    }
-}
-
-void IhmSfml::setView(Model::Board& board)
-{
-    // si on est en pause, sauvegarder le board dans board tmp
-    // pour pouvoir le restaurer par la suite avec exitPause()
-    if(this->paused)
-        this->boardStorage = board;
-    else
-    {
-        std::map<Model::Tile,std::string> map {
-            {Model::Tile::EMPTY, " "},
-            {Model::Tile::X, "X"},
-            {Model::Tile::O, "O"}
-        };
-        for(int x = 0 ; x < Model::Board::DIM ; ++x)
-        {
-            for(int y = 0 ; y < Model::Board::DIM ; ++y)
-            {
-                sf::Text& t = *this->tiles[x * Model::Board::DIM + y].get();
-                t.setString(map[board[y * Model::Board::DIM + x]]);
-            }
-        }
-    }
-}
-
-void IhmSfml::setView(const Model::Player& turn)
-{
-    ;
-}
-
-void IhmSfml::display()
-{
-    this->window->clear();
-    this->window->draw(*this->background);
-    this->window->draw(*this->board);
-    this->window->draw(*this->gridBackground);
-    for(int i = 0 ; i < Model::Board::SIZE ; ++i)
-    {
-        this->window->draw(*this->tiles[i]);
-        this->window->draw(*this->selected[i]);
-    }
-    this->window->draw(*this->winner);
-    this->window->display();
-}
-
-void IhmSfml::announceWinner(const Model::Player& winner)
-{
-    if(winner == Model::Player::X)
-        this->winner->setString("YOU WIN");
-    else /* player O */
-        this->winner->setString("YOU LOSE");
-
-    this->paused = true;
+    return  x > 139 && x < 760 && y > 139 && y < 760;
 }
 
 void IhmSfml::exitPause()
@@ -169,4 +152,42 @@ void IhmSfml::exitPause()
     this->setView(this->boardStorage);
     this->winner->setString("");
     
+}
+
+/* Event handlers*/
+
+void IhmSfml::handleClickDuringPause()
+{
+    this->exitPause();
+}
+
+void IhmSfml::handleClickIn(sf::Event evt)
+{
+    unsigned mouse_x = evt.mouseButton.x;
+    unsigned mouse_y = evt.mouseButton.y;
+    unsigned index_x = std::round((mouse_y - 140) / 125);
+    unsigned index_y = std::round((mouse_x - 140) / 125);
+    unsigned index = index_x * Model::Board::DIM + index_y;
+
+    // if the user already clicked on a tile..
+    if(this->selectedTileIndex.get())
+    {
+        this->ctrl->submitMove(*this->selectedTileIndex.get(), index);
+        this->selected[*this->selectedTileIndex.get()]->setColor(sf::Color(255, 255, 255, 0));
+        this->selectedTileIndex.release();
+    }
+    else
+    {
+        this->selectedTileIndex.reset(new unsigned(index));
+        this->selected[index]->setColor(sf::Color(255, 255, 255, 150));
+    }
+}
+
+void IhmSfml::handleClickOut()
+{
+    if(this->selectedTileIndex.get())
+    {
+        this->selected[*this->selectedTileIndex.get()]->setColor(sf::Color(255, 255, 255, 0));
+        this->selectedTileIndex.release();
+    }
 }
