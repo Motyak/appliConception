@@ -9,6 +9,10 @@
 
 class Ihm;
 
+/**
+ * @brief Is responsible for executing the app use cases and updating the view
+ * 
+ */
 class Controller
 {
     std::unique_ptr<Ihm> ihm;
