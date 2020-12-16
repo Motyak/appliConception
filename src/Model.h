@@ -9,7 +9,6 @@ class Model
 {
   public:
     enum class Player { X = 1, O = -1};
-    // enum class Player { X , O };
     enum class Tile { EMPTY = 0, X = 1, O = -1 };
     struct Move { unsigned from, to; };
     struct Coord { unsigned x, y; };

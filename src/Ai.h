@@ -3,15 +3,17 @@
 
 #include "Model.h"
 
+#include <memory>
+
 class Ai
 {
   protected:
-    bool isValid(Model::Move move, Model::Board board, Model::Player player);
-    bool positionedOnEdge(unsigned index);
-    bool areOpposite(unsigned from, unsigned to);
+    std::unique_ptr<Model> model;
 
   public:
     virtual Model::Move nextMove(Model::Board board, Model::Player player) = 0;
+    
+    Ai();
     virtual ~Ai() = default;
 };
 

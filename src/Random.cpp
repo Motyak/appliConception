@@ -2,9 +2,12 @@
 
 Model::Move Random::nextMove(Model::Board board, Model::Player player)
 {
+    this->model->setGrid(board);
+    this->model->setTurn(player);
+
     Model::Move move;
     do { move = this->generateMove(); } 
-    while(!this->isValid(move, board, player));
+    while(!this->model->validMove(move.from, move.to));
     return move;
 }
 
