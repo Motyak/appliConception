@@ -18,6 +18,12 @@ Model::Tile& Model::Board::operator[](unsigned i)
     return *this->tiles.at(i).get();
 }
 
+/**
+ * @brief Check if there is a winner in the actual grid
+ * 
+ * @return true if there is a winner
+ * @return false if not
+ */
 bool Model::hasAWinner()
 {
     int sumRow, sumCol, sumDiag1, sumDiag2;
@@ -46,6 +52,10 @@ bool Model::hasAWinner()
     return false;
 }
 
+/**
+ * @brief Clear the actual grid by giving them EMPTY values
+ * 
+ */
 void Model::clearBoard()
 {
     for(const auto& t : this->grid.tiles)
@@ -68,6 +78,12 @@ std::ostream& operator<<(std::ostream& os, const Model::Board& board)
     return os;
 }
 
+/**
+ * @brief Plays a move in the actual grid without check
+ * 
+ * @param from start index
+ * @param to end index
+ */
 void Model::playMove(unsigned from, unsigned to)
 {
     unsigned x_from = from / Model::Board::DIM;
@@ -89,6 +105,14 @@ void Model::playMove(unsigned from, unsigned to)
     this->grid[i] = Model::getTile(this->getTurn());
 }
 
+/**
+ * @brief Check if a move is valid in the actual grid
+ * 
+ * @param from start index
+ * @param to ending index
+ * @return true if the move can be played
+ * @return false if not
+ */
 bool Model::validMove(unsigned from, unsigned to)
 {
      if(from == to)
@@ -105,6 +129,10 @@ bool Model::validMove(unsigned from, unsigned to)
     return true;
 }
 
+/**
+ * @brief Gives turn to the next player
+ * 
+ */
 void Model::incrementTurn()
 {
     if(this->turn == Model::Player::X)

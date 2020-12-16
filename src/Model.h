@@ -5,13 +5,37 @@
 #include <memory>
 #include <iostream>
 
+/**
+ * @brief Handles the entities (board and turn) and the game logic
+ * 
+ */
 class Model
 {
   public:
+  /**
+   * @brief Represents a player (X or O)
+   * 
+   */
     enum class Player { X = 1, O = -1};
+    /**
+     * @brief Represents a tile content (X, O or EMPTY)
+     * 
+     */
     enum class Tile { EMPTY = 0, X = 1, O = -1 };
+    /**
+     * @brief Represents a move (start and ending index)
+     * 
+     */
     struct Move { unsigned from, to; };
+    /**
+     * @brief Represents coords (x;y)
+     * 
+     */
     struct Coord { unsigned x, y; };
+    /**
+     * @brief Represents the board content
+     * 
+     */
     class Board
     {
         std::vector<std::shared_ptr<Tile>> tiles;
