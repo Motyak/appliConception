@@ -1,105 +1,90 @@
 @startuml Modelisation
 
-interface Ihm
+'''''''''''''''''''''''''''''''''''''''''''''''
+' IHM start
+'''''''''''''''''''''''''''''''''''''''''''''''
+abstract Ihm
 {
+    #Controller ctrl
     {abstract}+run()
     {abstract}+display()
-    {abstract}+setViewA(Model.EntA)
-    {abstract}+handle(..)
-    {abstract}+...()
-}
-
-note bottom of ModelEntA : Model.EntA (static class)
-class ModelEntA
-{
-    +<data>
-}
-
-note bottom of ModelEntB : Model.EntB (static class)
-class ModelEntB
-{
-    +<data>
-}
-
-Model *-- ModelEntA
-Model *-- ModelEntB
-class Model
-{
-    +getEntA()
-    +setEntA(Model.EntA)
-    +checkOnWin()
-    +..()
-}
-
-class AnimationFactory
-{
-    +{static}get..(..) : ..
-}
-
-class GraphicFactory
-{
-    +{static}get..(..) : ..
-}
-
-note bottom of IhmSfmlViewA : IhmSfml.ViewA (static class)
-class IhmSfmlViewA
-{
-    -<data>
-    -create()
-    +set(..)
-    +display()
-}
-
-note bottom of IhmSfmlViewB : IhmSfml.ViewB (static class)
-class IhmSfmlViewB
-{
-    -<data>
-    -create()
-    +set(..)
-    +display()
+    {abstract}+setView(grid : ModelBoard)
+    {abstract}+setView(turn : ModelPlayer)
+    {abstract}+announceWinner(winner : ModelPlayer)
 }
 
 note bottom of IhmSfml : easily replacable
 Ihm <|-- IhmSfml
-IhmSfml *-- IhmSfmlViewA
-IhmSfml *-- IhmSfmlViewB
-GraphicFactory <-- IhmSfmlViewA : use
-AnimationFactory <-- IhmSfmlViewA : use
 class IhmSfml
 {
+    -<graphical elements>
+    -pause : bool
+    -storage : ModelBoard
+    -selectedTile : int
+    -handleClickDuringPause() : void
+    -handleClickIn(sf::Event evt) : void
+    -handleClickOut() : void
+    -exitPause() : void
+    -insideGrid(unsigned x, unsigned y) : bool
     +run()
     +display()
-    +setViewA(Model.EntA)
-    +handle(..)
-    +...()
+    +setView(grid : ModelBoard)
+    +setView(turn : ModelPlayer)
+    +announceWinner(winner : ModelPlayer)
 }
 
-interface Ai 
+Ihm <|-- IhmCli
+class IhmCli
 {
-    {abstract} + nextMove()
+    -<his own model>
+    -clear() : void
+    -pause(s : unsigned) : void
+    -prompt() : string
+    +run()
+    +display()
+    +setView(grid : ModelBoard)
+    +setView(turn : ModelPlayer)
+    +announceWinner(winner : ModelPlayer)
+}
+'''''''''''''''''''''''''''''''''''''''''''''''
+' IHM end
+'''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+' AI start
+'''''''''''''''''''''''''''''''''''''''''''''''
+note left of Ai : Strategy pattern
+ModelMove <-- Ai: use
+interface Ai
+{
+    {abstract} +nextMove(board : ModelBoard, player : ModelPlayer) : ModelMove
 }
 
-note top of Ai : Strategy pattern
 Ai 	<|-- Random
 class Random
 {
-    + nextMove()
+    - generateMove() : ModelMove
+    + nextMove(..) : ModelMove
 }
 
 note left of MinMax : <b>nextMove</b> is a \ntemplate method
 Ai 	<|-- MinMax
 class MinMax
 {
-    + nextMove()
-    - genTree()
-    - evalNodes()
+    + nextMove(..)
+    - genTree(..)
+    - evalNode(node : ModelBoard)
+    - evalNodeRec(node : ModelBoard, depth : int)
 }
 
 MinMax 	<|-- MinMaxMulti
 class MinMaxMulti
 {
-    - genTree()
-    - evalNodes()
+    - genTree(..)
+    - evalNode(node : ModelBoard)
+    - evalNodeRec(node : ModelBoard, depth : int)
 }
 
 MinMaxMulti *-- ThreadPool
@@ -107,16 +92,74 @@ class ThreadPool
 {
 
 }
+'''''''''''''''''''''''''''''''''''''''''''''''
+' AI end
+'''''''''''''''''''''''''''''''''''''''''''''''
 
-note left of Controller : <b>updateView</b> updates\nViews based on Model
+
+
+
+
+'''''''''''''''''''''''''''''''''''''''''''''''
+' MODEL start
+'''''''''''''''''''''''''''''''''''''''''''''''
 Controller *-- Model
 Controller *--> Ihm
 Controller *-- Ai
 class Controller
 {
-    + run()
-    + updateView()
-    + UC1()
-    +...()
+    - playMove(unsigned from, unsigned to) : void
+    - aiPlays() : void
+    - checkOnWin() : bool
+    + Controller(Ihm ihm)
+    + updateView() : void
+    + submitMove(unsigned from, unsigned to) : bool
+    + renewGame() : void
+    + incrementTurn() : void
 }
+
+Model *-- ModelBoard
+Model *-- ModelPlayer
+class Model
+{
+    -grid : ModelBoard
+    -turn : ModelPlayer
+    -positionedOnEdge(unsigned i) : bool
+    -areOpposite(unsigned from, unsigned to) : bool
+    +validMove(unsigned from, unsigned to) : bool
+    +playMove(unsigned from, unsigned to) : void
+    +incrementTurn() : void
+    +hasAWinner() : bool
+    +clearBoard() : void
+    
+}
+
+ModelBoard *-- "25" ModelBoardTile
+class ModelBoard
+{
+    +<stucture access>()
+}
+
+enum ModelBoardTile
+{
+    +EMPTY = 0
+    +X = 1
+    +O = -1
+}
+
+enum ModelPlayer
+{
+    +X = 1
+    +O = -1
+}
+
+class ModelMove
+{
+    +from : unsigned
+    +to : unsigned
+}
+'''''''''''''''''''''''''''''''''''''''''''''''
+' MODEL end
+'''''''''''''''''''''''''''''''''''''''''''''''
+
 @enduml
