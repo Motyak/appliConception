@@ -2,21 +2,15 @@
 
 Model::Move MinMax::nextMove(Model::Board board, Model::Player player)
 {
-    // // generate the first depth of the tree
-    // this->genPossibleMoves(board, player);
+    // generate the first depth of the tree
+    this->genPossibleMoves(board, player);
 
-    // // evaluate each child recursively, starting at depth 0
-    // for(auto& b : this->boards)
-    //     this->evalFuncRec(&b, 0);
+    // evaluate each child recursively, starting at depth 0
+    for(auto& b : this->boards)
+        this->evalFuncRec(&b, 0);
 
-    // // return the best move found
-    // return this->getAssociatedMove(this->bestOutcome.first);
-
-    //debug
-    std::vector<Model::Board> a = this->genChildren(board);
-    // std::cout<<a[0]<<std::endl;
-
-    return {0,0};//stub
+    // return the best move found
+    return this->getAssociatedMove(this->bestOutcome.first);
 }
 
 void MinMax::genPossibleMoves(const Model::Board& board, const Model::Player& player)

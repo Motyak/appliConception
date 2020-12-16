@@ -108,9 +108,6 @@ class ThreadPool
 
 }
 
-ThreadPool *-- "1..*" SFMLThread
-class SFMLThread
-
 note left of Controller : <b>updateView</b> updates\nViews based on Model
 Controller *-- Model
 Controller *--> Ihm
