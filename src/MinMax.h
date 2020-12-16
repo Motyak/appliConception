@@ -9,6 +9,10 @@
 
 using Eval = int;
 
+/**
+ * @brief Is responsible for generating moves using MinMax algo
+ * 
+ */
 class MinMax : public Ai
 {
     std::vector<Model::Board> boards;

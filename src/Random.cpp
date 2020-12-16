@@ -1,5 +1,12 @@
 #include "Random.h"
 
+/**
+ * @brief Generate a random move based on the grid content and player turn
+ * 
+ * @param board grid content
+ * @param player player turn
+ * @return Model::Move a valid move
+ */
 Model::Move Random::nextMove(Model::Board board, Model::Player player)
 {
     this->model->setGrid(board);
@@ -11,6 +18,11 @@ Model::Move Random::nextMove(Model::Board board, Model::Player player)
     return move;
 }
 
+/**
+ * @brief Generate a random move
+ * 
+ * @return Model::Move a move
+ */
 Model::Move Random::generateMove()
 {
     unsigned x_from, y_from;

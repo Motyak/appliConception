@@ -8,6 +8,10 @@
 #include <algorithm>
 #include <array>
 
+/**
+ * @brief Is responsible for generating random moves
+ * 
+ */
 class Random : public Ai
 {
     std::random_device rand;

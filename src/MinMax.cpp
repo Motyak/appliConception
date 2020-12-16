@@ -1,5 +1,12 @@
 #include "MinMax.h"
 
+/**
+ * @brief Generate a move based on the grid content and player turn
+ * 
+ * @param board 
+ * @param player 
+ * @return Model::Move 
+ */
 Model::Move MinMax::nextMove(Model::Board board, Model::Player player)
 {
     // generate the first depth of the tree
@@ -13,6 +20,12 @@ Model::Move MinMax::nextMove(Model::Board board, Model::Player player)
     return this->getAssociatedMove(this->bestOutcome.first);
 }
 
+/**
+ * @brief Generate all the possible moves based on the grid content and player turn
+ * 
+ * @param board the grid content
+ * @param player the player turn
+ */
 void MinMax::genPossibleMoves(const Model::Board& board, const Model::Player& player)
 {
     this->model->setGrid(board);
@@ -26,6 +39,13 @@ void MinMax::genPossibleMoves(const Model::Board& board, const Model::Player& pl
             }
 }
 
+/**
+ * @brief Calculate a node value recursively
+ * 
+ * @param node a board state 
+ * @param depth depth in tree
+ * @return int a value
+ */
 int MinMax::evalFuncRec(Model::Board* node, unsigned depth)
 {
     // generate node children
@@ -63,6 +83,12 @@ int MinMax::evalFuncRec(Model::Board* node, unsigned depth)
     }
 }
 
+/**
+ * @brief Generate all the children of a board state
+ * 
+ * @param board the board state
+ * @return std::vector<Model::Board> the board children state
+ */
 std::vector<Model::Board> MinMax::genChildren(Model::Board& board)
 {
     this->model->setGrid(board);
@@ -85,9 +111,16 @@ std::vector<Model::Board> MinMax::genChildren(Model::Board& board)
     return children;
 }
 
-// Qui est le plus proche d'aligner 5 symboles?
+/**
+ * @brief Calculate a node board value
+ * 
+ * @param board a board
+ * @return int the board's value
+ */
 int MinMax::evalFunc(Model::Board& board)
 {
+    // Qui est le plus proche d'aligner 5 symboles?
+
     int sumRow, sumCol, sumDiag1, sumDiag2, sumMax, sumMin;
     sumRow = sumCol = sumDiag1 = sumDiag2 = 0;
     sumMax = -9999;    sumMin = 9999;
