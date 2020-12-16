@@ -16,7 +16,7 @@ class MinMax : public Ai
     std::pair<Model::Board*,Eval> bestOutcome;
 
     void genPossibleMoves(const Model::Board& board, const Model::Player& player);
-    std::vector<Model::Board> genChildren(Model::Board* board);
+    std::vector<Model::Board> genChildren(Model::Board& board);
     int evalFuncRec(Model::Board* node, unsigned depth);
     int evalFunc(Model::Board& board);
     Model::Move getAssociatedMove(Model::Board* board);

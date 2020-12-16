@@ -13,7 +13,8 @@ Model::Move MinMax::nextMove(Model::Board board, Model::Player player)
     // return this->getAssociatedMove(this->bestOutcome.first);
 
     //debug
-    std::cout<<this->evalFunc(board)<<std::endl;
+    std::vector<Model::Board> a = this->genChildren(board);
+    // std::cout<<a[0]<<std::endl;
 
     return {0,0};//stub
 }
@@ -34,19 +35,7 @@ void MinMax::genPossibleMoves(const Model::Board& board, const Model::Player& pl
 int MinMax::evalFuncRec(Model::Board* node, unsigned depth)
 {
     // generate node children
-    std::vector<Model::Board> children = this->genChildren(node);
-
-    // if node is a leaf, evaluate its value
-    if(children.empty())
-    {
-        int eval = this->evalFunc(*node);
-        if(eval > this->bestOutcome.second)
-        {
-            this->bestOutcome.first = node;
-            this->bestOutcome.second = eval;
-        }
-        return this->evalFunc(*node);
-    }
+    std::vector<Model::Board> children = this->genChildren(*node);
 
     // maximizing
     if(depth == 0)
@@ -58,7 +47,7 @@ int MinMax::evalFuncRec(Model::Board* node, unsigned depth)
         return value;
     }
     // minimizing
-    else /* depth == 1 */
+    else if(depth == 1)
     {
         // +infinity
         int value = 9999;
@@ -66,21 +55,38 @@ int MinMax::evalFuncRec(Model::Board* node, unsigned depth)
             value = std::min(value, this->evalFuncRec(&child, 2));
         return value;
     }
+
+     // if node is a leaf, evaluate its value
+    else /* depth == 2 */
+    {
+        int eval = this->evalFunc(*node);
+        if(eval > this->bestOutcome.second)
+        {
+            this->bestOutcome.first = node;
+            this->bestOutcome.second = eval;
+        }
+        return this->evalFunc(*node);
+    }
 }
 
-std::vector<Model::Board> MinMax::genChildren(Model::Board* board)
+std::vector<Model::Board> MinMax::genChildren(Model::Board& board)
 {
-    this->model->setGrid(*board);
+    this->model->setGrid(board);
     std::vector<Model::Board> children;
 
     for(int from = 0 ; from < Model::Board::SIZE ; ++from)
+    {
         for(int to = 0 ; to < Model::Board::SIZE ; ++to)
+        {
             if(this->model->validMove(from, to))
             {
+                // std::cout<<from<<"->"<<to<<" is a valid move"<<std::endl;
                 this->model->playMove(from, to);
                 children.push_back(this->model->getGrid());
-                this->model->setGrid(*board);
+                this->model->setGrid(board);
             }
+        }
+    }
 
     return children;
 }
