@@ -7,6 +7,10 @@ IhmSfml::IhmSfml() : Ihm()
     this->buildGraphics();
 }
 
+/**
+ * @brief Run the GUI (SFML graphics library)
+ * 
+ */
 void IhmSfml::run()
 {
     // event handling + rendering loop
@@ -34,6 +38,10 @@ void IhmSfml::run()
     }
 }
 
+/**
+ * @brief Display the views
+ * 
+ */
 void IhmSfml::display()
 {
     this->window->clear();
@@ -49,6 +57,11 @@ void IhmSfml::display()
     this->window->display();
 }
 
+/**
+ * @brief Set the view based on the model board
+ * 
+ * @param board The board to set to the view
+ */
 void IhmSfml::setView(Model::Board& board)
 {
     // if the game is in pause, save the new board in storage
@@ -73,11 +86,21 @@ void IhmSfml::setView(Model::Board& board)
     }
 }
 
+/**
+ * @brief Set the view based on the model turn
+ * 
+ * @param turn The player whose turn it is to play
+ */
 void IhmSfml::setView(const Model::Player& turn)
 {
     ;
 }
 
+/**
+ * @brief Announce who the winner of the game is
+ * 
+ * @param winner The winner of the game
+ */
 void IhmSfml::announceWinner(const Model::Player& winner)
 {
     if(winner == Model::Player::X)
@@ -88,6 +111,10 @@ void IhmSfml::announceWinner(const Model::Player& winner)
     this->paused = true;
 }
 
+/**
+ * @brief Build all the graphic components
+ * 
+ */
 void IhmSfml::buildGraphics()
 {
      this->window = std::make_unique<sf::RenderWindow>(
@@ -141,11 +168,23 @@ void IhmSfml::buildGraphics()
     }
 }
 
+/**
+ * @brief Check if the coords are located in the grid
+ * 
+ * @param x x coord
+ * @param y y coord
+ * @return true if the coords are located in the grid
+ * @return false otherwise
+ */
 bool IhmSfml::insideGrid(unsigned x, unsigned y)
 {
     return  x > 139 && x < 760 && y > 139 && y < 760;
 }
 
+/**
+ * @brief Exit the pause state
+ * 
+ */
 void IhmSfml::exitPause()
 {
     this->paused = false;
@@ -156,11 +195,20 @@ void IhmSfml::exitPause()
 
 /* Event handlers*/
 
+/**
+ * @brief Handle click event during pause state
+ * 
+ */
 void IhmSfml::handleClickDuringPause()
 {
     this->exitPause();
 }
 
+/**
+ * @brief Handle click inside grid
+ * 
+ * @param evt 
+ */
 void IhmSfml::handleClickIn(sf::Event evt)
 {
     unsigned mouse_x = evt.mouseButton.x;
@@ -183,6 +231,10 @@ void IhmSfml::handleClickIn(sf::Event evt)
     }
 }
 
+/**
+ * @brief Handle click outside of the grid
+ * 
+ */
 void IhmSfml::handleClickOut()
 {
     if(this->selectedTileIndex.get())

@@ -141,6 +141,12 @@ void Model::incrementTurn()
         this->turn = Model::Player::X;
 }
 
+/**
+ * @brief Get the player's tile value (symbol)
+ * 
+ * @param p a player
+ * @return Model::Tile the player's tile value (symbol)
+ */
 Model::Tile Model::getTile(Model::Player p)
 {
     if(p == Model::Player::X)
@@ -149,6 +155,12 @@ Model::Tile Model::getTile(Model::Player p)
         return Model::Tile::O;
 }
 
+/**
+ * @brief Get the player's opponent tile value (symbol)
+ * 
+ * @param p a player
+ * @return Model::Tile the player's opponent tile value (symbol)
+ */
 Model::Tile Model::getOpponentTile(Model::Player p)
 {
     if(p == Model::Player::X)
@@ -157,6 +169,13 @@ Model::Tile Model::getOpponentTile(Model::Player p)
         return Model::Tile::X;
 }
 
+/**
+ * @brief Check if the tile is positioned on edge
+ * 
+ * @param index the index of the tile
+ * @return true if it's positioned on edge
+ * @return false otherwise
+ */
 bool Model::positionedOnEdge(unsigned index)
 {
     unsigned x_index = index / Model::Board::DIM;
@@ -169,6 +188,14 @@ bool Model::positionedOnEdge(unsigned index)
     return true;
 }
 
+/**
+ * @brief Check wether the two tiles are opposite
+ * 
+ * @param from start index
+ * @param to end index
+ * @return true if the two tiles are opposite
+ * @return false otherwise
+ */
 bool Model::areOpposite(unsigned from, unsigned to)
 {
     unsigned x_from = from / Model::Board::DIM;

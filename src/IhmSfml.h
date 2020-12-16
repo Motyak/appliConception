@@ -5,6 +5,10 @@
 
 #include <SFML/Graphics.hpp>
 
+/**
+ * @brief Is responsible for displaying the views and handling user events
+ * 
+ */
 class IhmSfml : public Ihm
 {
     bool paused;

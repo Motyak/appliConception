@@ -4,6 +4,10 @@
 #include "Ihm.h"
 #include "Model.h"
 
+/**
+ * @brief Is responsible for displaying the views and handling user events
+ * 
+ */
 class IhmCli : public Ihm
 {
     std::unique_ptr<Model> model;
