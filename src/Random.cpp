@@ -1,6 +1,14 @@
 #include "Random.h"
 
-Model::Move Random::nextMove(Model::Board board)
+Model::Move Random::nextMove(Model::Board board, Model::Player player)
+{
+    Model::Move move;
+    do { move = this->generateMove(); } 
+    while(!this->isValid(move, board, player));
+    return move;
+}
+
+Model::Move Random::generateMove()
 {
     unsigned x_from, y_from;
 

@@ -89,7 +89,7 @@ void Model::playMove(unsigned from, unsigned to)
     this->grid[i] = Model::getTile(this->getTurn());
 }
 
-bool Model::submitMove(unsigned from, unsigned to)
+bool Model::validMove(unsigned from, unsigned to)
 {
      if(from == to)
         return false;

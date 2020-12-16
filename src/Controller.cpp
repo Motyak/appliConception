@@ -15,7 +15,8 @@ void Controller::updateView()
 
 bool Controller::submitMove(unsigned from, unsigned to)
 {
-    if(this->model->submitMove(from, to))
+    // if(this->model->submitMove(from, to))
+    if(this->model->validMove(from, to))
     {
         /* Player's turn */
         {
@@ -57,10 +58,10 @@ void Controller::playMove(unsigned from, unsigned to)
 
 void Controller::aiPlays()
 {
-    Model::Move nextMove;
-
-    do { nextMove = this->ai->nextMove(this->model->getGrid()); }
-    while(!this->model->submitMove(nextMove.from, nextMove.to));
+    Model::Board& grid = this->model->getGrid();
+    Model::Player& turn = this->model->getTurn();
+    
+    Model::Move nextMove = this->ai->nextMove(grid, turn);
     this->playMove(nextMove.from, nextMove.to);
 }
 

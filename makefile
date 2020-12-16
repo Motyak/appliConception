@@ -1,8 +1,8 @@
 CC=g++
 CFLAGS=#-O3
 LDFLAGS=-lsfml-graphics -lsfml-window -lsfml-system
-SRC=src/Model.cpp src/IhmSfml.cpp src/IhmCli.cpp src/Random.cpp src/Controller.cpp src/main.cpp
-OBJ=obj/Model.o obj/Ihm.o obj/IhmSfml.o obj/IhmCli.o obj/Random.o obj/Controller.o obj/main.o
+SRC=src/Model.cpp src/IhmSfml.cpp src/IhmCli.cpp src/Ai.cpp src/Random.cpp src/Controller.cpp src/main.cpp
+OBJ=obj/Model.o obj/Ihm.o obj/IhmSfml.o obj/IhmCli.o obj/Ai.o obj/Random.o obj/Controller.o obj/main.o
 EXEC=bin/quixo
 DIRS=bin obj
 
@@ -23,6 +23,9 @@ obj/IhmSfml.o: src/IhmSfml.cpp src/IhmSfml.h
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 obj/IhmCli.o: src/IhmCli.cpp src/IhmCli.h
+	$(CC) -c $< -o $@ $(CFLAGS)
+
+obj/Ai.o: src/Ai.cpp src/Ai.h
 	$(CC) -c $< -o $@ $(CFLAGS)
 
 obj/Random.o: src/Random.cpp src/Random.h src/Ai.h
